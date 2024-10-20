@@ -1,31 +1,37 @@
+const express = require("express");
+const mongoose = require('mongoose');
+const loginRouter = require('./routes/loginRouter'); 
+const homeRouter = require('./routes/homeRouter');
 
-const express = require("express")
-<<<<<<< HEAD
-const mongoose = require('mongoose')
-=======
->>>>>>> af82a7f2ecee0021d79d4c1cc98efde4c3c72445
-const app = express()
+const app = express();
+const url = "mongodb://127.0.0.1:27017/loginRoute"
 
-app.get("/",(req,res)=>{
-    console.log("hi gaes")
-    res.send("Hi")
-})
+// view engine setup
+app.set('view engine', 'ejs'); // specifying the view engine in the express app
 
-const port = 8000
-<<<<<<< HEAD
-app.listen(port)
-app.use(express.json());
+// app.use(express.json()); // parsing JSON data
+app.use(express.urlencoded({ extended: true })); // parsing user input
+// logs info about request method, status code, and response time
+//var logger = require('morgan');
 
-mongoose.connect('mongodb://localhost:27017/loginRoute', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => console.log('MongoDB connected'))
-  .catch((err) => console.log(err));
+app.use(express.static('public'));
 
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-});
-=======
+// these are found in the roots folder since they handle a url, these are get methods
+app.use('/', homeRouter);
+app.use('/accounts', loginRouter);
 
-app.listen(port)
->>>>>>> af82a7f2ecee0021d79d4c1cc98efde4c3c72445
+app.use(express.json());  // using json library 
+app.use(express.urlencoded({ extended: false })); // parses incoming URL-encoded form data 
+//app.use(express.static(path.join(__dirname, 'public')));  // if displaying a file it will be in public folder
+
+// Connect to MongoDB using Mongoose
+mongoose.connect(url)
+  .then(() => {
+    console.log(' Successfully connected to server');
+  })
+  .catch((error) => {
+    console.error('Error connecting to server:', error);
+  });
+
+  // exporting the app object to make it available in other files 
+  module.exports = app;
