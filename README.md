@@ -3,6 +3,7 @@
 <img src="https://github.com/user-attachments/assets/0bed7b95-6d42-447b-88d6-eba616ae8676" height="170"> <br>
 
 2. Unzip the folder. <br>
+
 3. Use Visual Studio code to open the folder <br>
 <img src="https://github.com/user-attachments/assets/d800f969-930a-46c8-b5e1-7f4a14c7c58a" height="170"> <br>
 
