@@ -12,6 +12,7 @@
     "nodemailer": "^6.9.15"
   },
   "scripts": {
+    "server": "nodemon server.js",
     "devStart": "nodemon server.js"
   },
   "devDependencies": {
