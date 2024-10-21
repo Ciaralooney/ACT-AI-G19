@@ -4,7 +4,8 @@ const flash = require("connect-flash");
 const mongoose = require("mongoose");
 
 const app = express();
-const port = 3000;
+const url = "mongodb://127.0.0.1:27017/loginRoute"
+const port = 5000;
 
 require('dotenv').config();
 app.use(session({
