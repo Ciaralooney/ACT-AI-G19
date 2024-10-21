@@ -1,0 +1,121 @@
+p {
+	text-align: center;
+}
+text{color: #160F29;}
+body {color: #F3DFC1;}
+#nav {
+	display: block;
+	/* Setting a thick border */
+	border-bottom: 1px solid;
+	background-color: white;
+	color: #246A73;
+	padding: 7px;
+	margin: 25px;
+	border: 1px outset;
+	border-width: medium;
+	clear: left;
+	width: 30%
+}
+.subMenu {
+	background-color: #4479ff;
+	color: #368F8B;
+	display: block;
+	padding: 4px;
+	margin: 8px;
+	border: 1px outset;
+	border-width: medium;
+	/* Changes how long the button is */
+	width: 20%;
+	text-align: center;
+	text-decoration: none;
+	/* Aligning the sub menus to be centered to the main menu */
+	margin-left: 20%;
+}
+/* Hiding the navigation menu initially */
+#expandingMenu {
+	display: none;
+}
+
+
+.image-cols {
+    /* Using Flexbox to ensure columns are equal height */
+    flex: 1 0 auto;
+    width: 25%;
+    margin-top: 8px;
+    vertical-align: middle;
+}
+
+footer {
+    clear: left;
+}
+
+/* Styling for forms */
+.container {
+    background: lightslategray;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%; /* Changes dynamically */
+    max-width: 350px;
+    margin: 20px auto;
+}
+
+
+/* change screen settings when screen max width is 768px */
+@media only screen and (max-width: 768px) {
+    html {
+        margin: 0;
+    }
+
+    body {
+        margin: auto;
+    }
+
+    main nav {
+        float: none;
+        width: 100%;
+        padding: 0.5em;
+        text-align: center;
+    }
+
+    main nav a {
+        display: inline;
+    }
+
+
+    .image-cols {
+        width: 80%;
+        margin-bottom: 1em;
+    }
+
+
+}
+
+/* change screen settings when screen max width is 480px */
+@media only screen and (max-width: 480px) {
+    html {
+        margin: 0;
+    }
+
+    body {
+        width: auto;
+    }
+
+    figure {
+        float: none;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+
+    main nav a {
+        display: block;
+        font-size: 120%;
+        margin: 0;
+        border-bottom: 2px ridge #00005D;
+    }
+
+    .image-cols {
+        width: 100%;
+    }
+
+}

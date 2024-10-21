@@ -1,27 +1,27 @@
 <div class="wrapper">
     <html>
-    <h1><%= title %></h1>
     <head>
+        <h1><%= title %></h1>
         <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>
+        <script href="/javascripts/scripts.js" ></script>
     </head>
-    <div class="ra-r">
-        <div class="tp">
         <nav>
-            <a class="thumb-pr mn" href="/views/index.ejs">Home</a> 
-            <a class="thumb-pr mn" href="/accounts/login">Login</a>
-            <a class="thumb-pr r-e" href="/bookings/signup">Signup</a> 
+            <!-- When the navigation button is clicked the submenu shows -->
+            <button id="nav" onclick="show()">Navigation menu</button>
+            <div class="hide" id="expandingMenu" >
+                <a class="thumb-pr mn" href="/views/index.ejs">Home</a> 
+                <a class="thumb-pr mn" href="/accounts/login">Login</a>
+            </div>
         </nav>
-    </div>
-</div>
 <body>
     <div class="row">
-        <div class="column">
-          <!-- Image Source:  -->
-          <img src="/images/parachute.jpg">
-          <!-- Image Source:  -->
-          <img src="/images/parachute.jpg">
-          <!-- Image Source:  -->
-          <img src="images/parachute.jpg">
+        <div class="image-cols">
+          <!-- Image Source: pngwing.com -->
+          <img src="/images/image1.png" height="150" width="100">
+          <!-- Image Source: pngwing.com -->
+          <img src="/images/image2.png" height="150" width="100">
+          <!-- Image Source: pngwing.com -->
+          <img src="images/image3.png" height="150" width="100">
         </div>
 
 </body>
