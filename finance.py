@@ -1,45 +1,29 @@
 import pandas as pd
 import yfinance as yf
 import plotly.express as px
-from flask import Flask, render_template_string
+from flask import Flask, render_template_string, jsonify, request
 
-
-#imports stock data from yahooFinance 
-symbol = yf.Ticker("msft")
-
-#type of stockInfo is dict
-stockInfo = symbol.info
-companyName = symbol.info['longName']
-
-# Sample market data in a Pandas DataFrame
-data = symbol.history(period="1mo")
-# print(data)
-df = pd.DataFrame(data)
-# Create a Plotly figure
-
-fig = px.line(df, y='Open', title= f'Market Prices of {companyName} Over Time')
-fig.show()
-
-# Convert the plot to HTML
-graph_html = fig.to_html(full_html=False)
 
 app = Flask(__name__)
-# Serve the graph on a webpage
 
-@app.route('/')
-def index():
-    # Render the graph HTML inside a simple template
-    return render_template_string('''
-    <html>
-        <head>
-            <title>Market Data Visualization</title>
-        </head>
-        <body>
-            <h1>Market Prices of {{name}}</h1>
-            {{ graph|safe }}
-        </body>
-    </html>
-    ''', graph=graph_html, name = companyName)
+@app.route('/api/stocks', methods=['GET'])
+def get_stock_data():
+    symbol = request.args.get('symbol', 'AAPL')  # Default to AAPL if no symbol is provided
+    stock = yf.Ticker(symbol)
+    data = stock.history(period='1d')  # Get daily stock data
+
+    if data.empty:
+        return jsonify({'error': 'No data found for symbol: ' + symbol}), 404
+
+    return jsonify({
+        'symbol': symbol,
+        'date': data.index[0].strftime('%Y-%m-%d'),
+        'open': float(data['Open'][0]),  # Convert numpy.float64 to Python float
+        'close': float(data['Close'][0]),
+        'high': float(data['High'][0]),
+        'low': float(data['Low'][0]),
+        'volume': int(data['Volume'][0])  # Convert numpy.int64 to Python int
+    })
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=5000, debug=True)

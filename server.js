@@ -2,10 +2,11 @@ const express = require("express");
 const mongoose = require('mongoose');
 const loginRouter = require('./routes/loginRouter'); 
 const homeRouter = require('./routes/homeRouter');
+const stockRouter = require('./routes/stockRouter')
 
 const app = express();
 const url = "mongodb://127.0.0.1:27017/loginRoute"
-const port = 5000;
+const port = 3000;
 
 // view engine setup
 app.set('view engine', 'ejs'); // specifying the view engine in the express app
@@ -20,6 +21,7 @@ app.use(express.static('public'));
 // these are found in the roots folder since they handle a url, these are get methods
 app.use('/', homeRouter);
 app.use('/accounts', loginRouter);
+app.use('/stocks', stockRouter)
 
 app.use(express.json());  // using json library 
 app.use(express.urlencoded({ extended: false })); // parses incoming URL-encoded form data 
