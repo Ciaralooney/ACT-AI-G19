@@ -6,6 +6,7 @@ require('dotenv').config();
 
 const app = express();
 const mongodbURL = process.env.MONGO;
+const stockRouter = require('./routes/stockRouter')
 const port = 3000;
 
 // view engine setup
@@ -21,6 +22,7 @@ app.use(express.static('public'));
 // these are found in the roots folder since they handle a url, these are get methods
 app.use('/', homeRouter);
 app.use('/accounts', loginRouter);
+app.use('/stocks', stockRouter)
 
 app.use(express.static('public'));
 app.use(express.json());  // using json library 
