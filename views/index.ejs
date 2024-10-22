@@ -1,28 +1,42 @@
 <div class="wrapper">
     <html>
     <head>
-        <h1><%= title %></h1>
         <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>
-        <script href="/javascripts/scripts.js" ></script>
+        <script src="/javascripts/scripts.js"></script>
     </head>
+    <header>
+        <h1><%= title %></h1>
+    </header>
         <nav>
             <!-- When the navigation button is clicked the submenu shows -->
             <button id="nav" onclick="show()">Navigation menu</button>
             <div class="hide" id="expandingMenu" >
-                <a class="thumb-pr mn" href="/views/index.ejs">Home</a> 
-                <a class="thumb-pr mn" href="/accounts/login">Login</a>
+                <a class="subMenu thumb-pr mn" href="/views/index.ejs">Home</a> 
+                <a class="subMenu thumb-pr mn" href="/accounts/login">Login</a>
             </div>
         </nav>
+        <main>
 <body>
+    <p>Hello Guest. Please login or signup via the navigation</p>
+
+
     <div class="row">
         <div class="image-cols">
           <!-- Image Source: pngwing.com -->
           <img src="/images/image1.png" height="150" width="100">
+          <p>Buy Stocks and Crypto</p>
+        </div>
+        <div class="image-cols">
           <!-- Image Source: pngwing.com -->
           <img src="/images/image2.png" height="150" width="100">
+          <p>Manage Assets</p>
+        </div>
+        <div class="image-cols">
           <!-- Image Source: pngwing.com -->
           <img src="images/image3.png" height="150" width="100">
+          <p>Invest Money</p>
         </div>
-
+    </div>
 </body>
+</main>
 </html>

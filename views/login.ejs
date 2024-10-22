@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title><%= title %></title>
-</head>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>
+        <script src="/javascripts/scripts.js"></script>
+    </head>
+    <header>
+        <h1><%= title %></h1>
+    </header>
 <body>
-    <h1>Login</h1>
     <form action="/accounts/login" method="POST">
         <label>Email:</label><br>
         <input type="email" name="email" required><br><br>
