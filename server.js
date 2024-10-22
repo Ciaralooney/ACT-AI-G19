@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 const app = express();
 const url = "mongodb://127.0.0.1:27017/loginRoute"
-const port = 5000;
+const port = 3000;
 
 require('dotenv').config();
 app.use(session({
