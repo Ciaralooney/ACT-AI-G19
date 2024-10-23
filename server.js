@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const loginRouter = require('./routes/loginRouter'); 
 const homeRouter = require('./routes/homeRouter');
 require('dotenv').config();
+const stockRouter = require('./routes/stockRouter')
 
 const app = express();
 const mongodbURL = process.env.MONGO;
