@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require('mongoose');
 const loginRouter = require('./routes/loginRouter'); 
 const homeRouter = require('./routes/homeRouter');
+const portfolioRouter = require('./routes/portfolioRouter')
 require('dotenv').config();
 
 const app = express();
@@ -21,6 +22,7 @@ app.use(express.static('public'));
 // these are found in the roots folder since they handle a url, these are get methods
 app.use('/', homeRouter);
 app.use('/accounts', loginRouter);
+app.use('/', portfolioRouter)
 
 app.use(express.static('public'));
 app.use(express.json());  // using json library 
