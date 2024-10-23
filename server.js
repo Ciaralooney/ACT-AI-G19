@@ -2,9 +2,10 @@ const express = require("express");
 const mongoose = require('mongoose');
 const loginRouter = require('./routes/loginRouter'); 
 const homeRouter = require('./routes/homeRouter');
+require('dotenv').config();
 
 const app = express();
-const url = "mongodb://127.0.0.1:27017/loginRoute"
+const mongodbURL = process.env.MONGO;
 const port = 3000;
 
 // view engine setup
@@ -27,7 +28,7 @@ app.use(express.urlencoded({ extended: false })); // parses incoming URL-encoded
 //app.use(express.static(path.join(__dirname, 'public')));  // if displaying a file it will be in public folder
 
 // Connect to MongoDB using Mongoose
-mongoose.connect(url)
+mongoose.connect(mongodbURL)
   .then(() => {
     console.log(' Successfully connected to server');
   })
@@ -40,6 +41,6 @@ mongoose.connect(url)
     console.log(`Server started on port ${port}`);
   });
   
-  
+
   // exporting the app object to make it available in other files 
   module.exports = app;
