@@ -13,10 +13,6 @@ def get_stocks():
     
     stock_symbols = stock_symbols['listSymbols']
     print(stock_symbols)
-    # stock_symbols = list(stock_symbols)
-    # python_list = list(stock_symbols)
-    # print("receiveed")
-    # stock_symbols = {'aapl','msft','amzn','goog','googl','meta','nvda','tsla','nflx','intc','adbe','crm','orcl','amd','csco','shop'}
     for symbol in stock_symbols:
         stock = yf.Ticker(symbol)
         hist = stock.history(period='1d').to_dict()
