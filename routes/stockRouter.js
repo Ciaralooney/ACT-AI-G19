@@ -7,16 +7,18 @@ stockRouter.get('/search', (req,res)=>{
     res.render('../views/stockSearch')
 })
 
-stockRouter.get('/',async (req,res)=>{
+stockRouter.post('/',async (req,res)=>{
     var listSymbols = ['aapl','msft','amzn','goog','googl','meta','nvda','tsla','nflx','intc','adbe','crm','orcl','amd','csco','shop']
     // var pm = JSON.stringify(listSymbols)
     try {
-        const response = await axios.get("http://localhost:5000/get_stock_data", {
-        });
-        const stockData = response.data
-        console.log(stockData)
+        const response = await axios.post("http://localhost:5000/get_stock_data", 
+            {array: {listSymbols}},
+            { headers: { 'Content-Type': 'application/json' }}
+        )
+        stockData = res.json(response.data);
+        // console.log(stockData);
     } catch(error){
-        res.status(500).json(error);
+        res.status(500);
     }
     // res.render("../views/stockList",{'stockList':listSymbols})
 })
@@ -39,6 +41,7 @@ stockRouter.get('/search/:symbol', async (req, res) => {
         const response = await axios.get(`http://localhost:5000/api/stocks`, {
             params: { symbol }
         });
+        console.log(response.data);
         res.json(response.data);
     } catch (error) {
         res.status(500).json({ error: 'Error fetching stock data' });

@@ -5,16 +5,22 @@ from flask import Flask, render_template_string, jsonify, request
 
 app = Flask(__name__)
 
-@app.route('/get_stock_data', methods=['GET'])
+@app.route('/get_stock_data', methods=['POST'])
 def get_stocks():
-    # data = request.json
-    # stock_symbols = data.get('symbols',[])
+    data = request.get_json()
     historical_data = {}
-    stock_symbols = {'aapl','msft','amzn','goog','googl','meta','nvda','tsla','nflx','intc','adbe','crm','orcl','amd','csco','shop'}
+    stock_symbols = data.get('array',[])
+    
+    stock_symbols = stock_symbols['listSymbols']
+    print(stock_symbols)
+    # stock_symbols = list(stock_symbols)
+    # python_list = list(stock_symbols)
+    # print("receiveed")
+    # stock_symbols = {'aapl','msft','amzn','goog','googl','meta','nvda','tsla','nflx','intc','adbe','crm','orcl','amd','csco','shop'}
     for symbol in stock_symbols:
         stock = yf.Ticker(symbol)
         hist = stock.history(period='1d').to_dict()
-        # historical_data[symbol] = hist.to_dict()
+        historical_data[symbol] = hist.to_dict()
         
         historical_data[symbol] = {}
         
@@ -40,11 +46,11 @@ def get_stock_data():
     return jsonify({
         'symbol': symbol,
         'date': data.index[0].strftime('%Y-%m-%d'),
-        'open': float(data['Open'][0]),  # Convert numpy.float64 to Python float
-        'close': float(data['Close'][0]),
-        'high': float(data['High'][0]),
-        'low': float(data['Low'][0]),
-        'volume': int(data['Volume'][0])  # Convert numpy.int64 to Python int
+        'open': float(data['Open'].iloc[0]),  # Convert numpy.float64 to Python float
+        'close': float(data['Close'].iloc[0]),
+        'high': float(data['High'].iloc[0]),
+        'low': float(data['Low'].iloc[0]),
+        'volume': int(data['Volume'].iloc[0])  # Convert numpy.int64 to Python int
     })
 
 if __name__ == '__main__':
