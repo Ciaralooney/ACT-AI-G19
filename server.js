@@ -7,7 +7,6 @@ const stockRouter = require('./routes/stockRouter')
 
 const app = express();
 const mongodbURL = process.env.MONGO;
-const stockRouter = require('./routes/stockRouter')
 const port = 3000;
 
 // view engine setup
