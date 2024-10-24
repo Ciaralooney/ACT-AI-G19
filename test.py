@@ -25,19 +25,41 @@ import json
     
 #     # Show the figure
 #     fig.show()
-
-historical_data = {}
-stock_symbols = {'aapl'}  # 'msft','amzn','goog','googl','meta','nvda','tsla','nflx','intc','adbe','crm','orcl','amd','csco','shop'}
-for symbol in stock_symbols:
-    stock = yf.Ticker(symbol)
-    hist = stock.history(period='1d')
-    
-    hist = hist.to_dict()
-    
-    for stock in hist:
-        for key in hist[stock]:
+def testMethod():
+    historical_data = {}
+    stock_symbols = {'aapl','msft','amzn','goog','googl','meta','nvda','tsla','nflx','intc','adbe','crm','orcl','amd','csco','shop'}
+    for symbol in stock_symbols:
+        stock = yf.Ticker(symbol)
+        hist = stock.history(period='1d')
+        
+        hist = hist.to_dict()
+        
+        for stock in hist:
+            for key in hist[stock]:
                 print(stock, key, hist[stock][key])
-    
-    # historical_data[symbol] = 
+        
+        # historical_data[symbol] = 
 
-print(json.dumps(historical_data))
+    print(json.dumps(historical_data))
+# testMethod()
+
+def get_stock_data():
+    # symbol = request.args.get('symbol', 'AAPL')  # Default to AAPL if no symbol is provided
+    stock = yf.Ticker('aapl')
+    data = stock.history(period='1d')  # Get daily stock data
+
+    if data.empty:
+        return jsonify({'error': 'No data found for symbol: ' + symbol}), 404
+
+    print({
+        'symbol': 'aapl',
+        'date': data.index[0].strftime('%Y-%m-%d'),
+        'open': float(data['Open'].iloc[0]),  # Convert numpy.float64 to Python float
+        'close': float(data['Close'].iloc[0]),
+        'high': float(data['High'].iloc[0]),
+        'low': float(data['Low'].iloc[0]),
+        'volume': int(data['Volume'].iloc[0])  # Convert numpy.int64 to Python int
+    })
+get_stock_data()
+
+
