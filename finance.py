@@ -20,7 +20,7 @@ def get_stocks():
     for symbol in stock_symbols:
         stock = yf.Ticker(symbol)
         hist = stock.history(period='1d').to_dict()
-        historical_data[symbol] = hist.to_dict()
+        # historical_data[symbol] = hist.to_dict()
         
         historical_data[symbol] = {}
         
