@@ -6,23 +6,37 @@
             <link rel="stylesheet" type='text/css'href="/stylesheets/stylesheets.css">
         </head>
         <body>
+            <script src="/scripts/allStocks.js"></script>
             <div class="wrapper">
                 <h1>List of Stocks <%= stockList.length %></h1>
             <table class="table table-inverse">
                 <thead>
                     <tr>
-                        <th>symbol</th>
+                        <th>Symbol</th>
+                        <th>Close</th>
+                        <th>Dividends</th>
+                        <th>High</th>
+                        <th>Low</th>
+                        <th>Open</th>
+                        <th>Stock Splits</th>
+                        <th>Volume</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><% for(var i=0; i < stockList.length;i++){ %>
-                        <td><%= stockList[i] %></td>
+                    <tr><% for(company in stockList){ %>
+                        <td><%= company.toUpperCase() %></td>
+                        <td><%= stockData[company].Close %></td>
+                        <td><%= stockData[company].Dividends %></td>
+                        <td><%= stockData[company].High %></td>
+                        <td><%= stockData[company].Low %></td>
+                        <td><%= stockData[company].Open %></td>
+                        <td><%= stockData[company].StockSplits %></td>
+                        <td><%= stockData[company].Volume %></td>
                     </tr>
                         <%} %>
-                    
                 </tbody>
             </table>
             </div>
-            <script src="/scripts/allStocks.js"></script>
+            
         </body>
 </html>

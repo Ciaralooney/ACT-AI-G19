@@ -7,7 +7,7 @@ stockRouter.get('/search', (req,res)=>{
     res.render('../views/stockSearch')
 })
 
-stockRouter.post('/',async (req,res)=>{
+stockRouter.get('/',async (req,res)=>{
     var listSymbols = ['aapl','msft','amzn','goog','googl','meta','nvda','tsla','nflx','intc','adbe','crm','orcl','amd','csco','shop']
     // var pm = JSON.stringify(listSymbols)
     try {
@@ -15,8 +15,8 @@ stockRouter.post('/',async (req,res)=>{
             {array: {listSymbols}},
             { headers: { 'Content-Type': 'application/json' }}
         )
-        stockData = res.json(response.data);
-        // console.log(stockData);
+        stockData = response.data;
+        res.render('../views/stockList',{'stockList':stockData});
     } catch(error){
         res.status(500);
     }
