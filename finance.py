@@ -3,8 +3,30 @@ import yfinance as yf
 import plotly.express as px
 from flask import Flask, render_template_string, jsonify, request
 
-
 app = Flask(__name__)
+
+@app.route('/get_stock_data', methods=['GET'])
+def get_stocks():
+    # data = request.json
+    # stock_symbols = data.get('symbols',[])
+    historical_data = {}
+    stock_symbols = {'aapl','msft','amzn','goog','googl','meta','nvda','tsla','nflx','intc','adbe','crm','orcl','amd','csco','shop'}
+    for symbol in stock_symbols:
+        stock = yf.Ticker(symbol)
+        hist = stock.history(period='1d').to_dict()
+        # historical_data[symbol] = hist.to_dict()
+        
+        historical_data[symbol] = {}
+        
+        for stock in hist:
+            for key in hist[stock]:
+                historical_data[symbol][stock] = hist[stock][key]
+    
+    # print(historical_data)
+    
+    return jsonify(historical_data)
+
+
 
 @app.route('/api/stocks', methods=['GET'])
 def get_stock_data():
