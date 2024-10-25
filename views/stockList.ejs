@@ -24,11 +24,11 @@
                     <% for(let company in stockList){ %>
                     <tr>
                         <td><%= company.toUpperCase() %></td>
-                        <td class="close"><%= stockList[company].Close %></td>
-                        <td class="high"><%= stockList[company].High %></td>
-                        <td class="low"><%= stockList[company].Low %></td>
-                        <td class="open"><%= stockList[company].Open %></td>
-                        <td class="volume"><%= stockList[company].Volume %></td>
+                        <td class="close"><%= stockList[company].Close.toFixed(3) %></td>
+                        <td class="high"><%= stockList[company].High.toFixed(3) %></td>
+                        <td class="low"><%= stockList[company].Low.toFixed(3) %></td>
+                        <td class="open"><%= stockList[company].Open.toFixed(3) %></td>
+                        <td class="volume"><%= stockList[company].Volume.toFixed(3) %></td>
                     </tr>
                         <%} %>
                 </tbody>

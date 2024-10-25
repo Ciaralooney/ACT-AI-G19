@@ -16,14 +16,14 @@ def get_stocks():
     # print(stock_symbols)
     for symbol in stock_symbols:
         stock = yf.Ticker(symbol)
-        hist = stock.history(period='1d',interval = '1m').iloc[-1].to_dict()
+        hist = stock.history(
+            period='1d',
+            interval = '1m'
+            ).iloc[-1].to_dict()
+        # hist['Volume'] = hist.get('Volume') / 1e6 # Convert to millions
+        print(hist)
         historical_data[symbol] = hist
-        # print(historical_data)
-        # for stock in hist:
-        #     for key in hist[stock]:
-        #         historical_data[symbol][stock] = hist[stock][key]
-        
-    
+    # print(historical_data)
     return jsonify(historical_data)
 
 @app.route('/get_crypto_data',methods=['POST'])
@@ -41,6 +41,7 @@ def get_crypto():
             interval = "1m"
             ).iloc[-1]
         dataDict = df.unstack().to_dict()
+        dataDict[symbol]['Volume'] = dataDict[symbol]['Volume'] / 1e6  # Convert to millions
         historical_data.update(dataDict)
         # print(historical_data)
         # for stock in hist:
