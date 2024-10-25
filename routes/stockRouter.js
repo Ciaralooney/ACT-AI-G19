@@ -1,13 +1,13 @@
 const express = require('express');
 const axios = require('axios')
 
-var stockRouter = express.Router();
+var router = express.Router();
 
-stockRouter.get('/search', (req,res)=>{
+router.get('/search', (req,res)=>{
     res.render('../views/stockSearch')
 })
 
-stockRouter.get('/',async (req,res)=>{
+router.get('/',async (req,res)=>{
     var listSymbols = ['aapl','msft','amzn','goog','googl','meta','nvda','tsla','nflx','intc','adbe','crm','orcl','amd','csco','shop']
     // var pm = JSON.stringify(listSymbols)
     try {
@@ -20,22 +20,24 @@ stockRouter.get('/',async (req,res)=>{
     } catch(error){
         res.status(500);
     }
-    // res.render("../views/stockList",{'stockList':listSymbols})
 })
-// stockRouter.post('/', ())
-// stockRouter.get('/', async (req, res) => { 
-//     const listSymbols = req.params.symbols
-//     try{
-//         const response = await axios.get("http://localhost:5000/get_stock_data", {
-//             params : {listSymbols}
-//         });
-//         res.json(response.data)
-//     } catch(error){
-//         res.status(500).json({ error: 'Error fetching stock data' });
-//     }
-// })
+router.get('/get_stock_data', async (req, res) => {
+    var listSymbols = ['aapl','msft','amzn','goog','googl','meta','nvda','tsla','nflx','intc','adbe','crm','orcl','amd','csco','shop'];
     
-stockRouter.get('/search/:symbol', async (req, res) => {
+    try {
+        const response = await axios.post("http://localhost:5000/get_stock_data", 
+            { array: { listSymbols } },
+            { headers: { 'Content-Type': 'application/json' }}
+        );
+        const stockData = response.data;
+        res.json(stockData); // Return JSON directly
+    } catch (error) {
+        console.error("Error fetching stock data:", error);
+        res.status(500).json({ error: "Error fetching stock data" }); // Return error as JSON
+    }
+});
+
+router.get('/search/:symbol', async (req, res) => {
     const symbol = req.params.symbol;
     try {
         const response = await axios.get(`http://localhost:5000/api/stocks`, {
@@ -49,4 +51,4 @@ stockRouter.get('/search/:symbol', async (req, res) => {
 });
 
 
-module.exports = stockRouter;
+module.exports = router;

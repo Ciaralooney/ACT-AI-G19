@@ -2,6 +2,7 @@ import pandas as pd
 import yfinance as yf
 import plotly.express as px
 from flask import Flask, render_template_string, jsonify, request
+import json
 
 app = Flask(__name__)
 
@@ -10,25 +11,44 @@ def get_stocks():
     data = request.get_json()
     historical_data = {}
     stock_symbols = data.get('array',[])
-    
+    # print(stock_symbols)
     stock_symbols = stock_symbols['listSymbols']
-    print(stock_symbols)
+    # print(stock_symbols)
     for symbol in stock_symbols:
         stock = yf.Ticker(symbol)
-        hist = stock.history(period='1d').to_dict()
-        # historical_data[symbol] = hist.to_dict()
+        hist = stock.history(period='1d',interval = '1m').iloc[-1].to_dict()
+        historical_data[symbol] = hist
+        # print(historical_data)
+        # for stock in hist:
+        #     for key in hist[stock]:
+        #         historical_data[symbol][stock] = hist[stock][key]
         
-        historical_data[symbol] = {}
-        
-        for stock in hist:
-            for key in hist[stock]:
-                historical_data[symbol][stock] = hist[stock][key]
-    
-    # print(historical_data)
     
     return jsonify(historical_data)
 
-
+@app.route('/get_crypto_data',methods=['POST'])
+def get_crypto():
+    data = request.get_json()
+    historical_data = {}
+    stock_symbols = data.get('array',[])
+    # print(stock_symbols)
+    stock_symbols = stock_symbols['listSymbols']
+    # print(stock_symbols)
+    for symbol in stock_symbols:
+        df = yf.download(
+            tickers = symbol,
+            period = "1d",
+            interval = "1m"
+            ).iloc[-1]
+        dataDict = df.unstack().to_dict()
+        historical_data.update(dataDict)
+        # print(historical_data)
+        # for stock in hist:
+        #     for key in hist[stock]:
+        #         historical_data[symbol][stock] = hist[stock][key]
+        
+    
+    return jsonify(historical_data)
 
 @app.route('/api/stocks', methods=['GET'])
 def get_stock_data():
@@ -48,6 +68,9 @@ def get_stock_data():
         'low': float(data['Low'].iloc[0]),
         'volume': int(data['Volume'].iloc[0])  # Convert numpy.int64 to Python int
     })
+
+
+    
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)

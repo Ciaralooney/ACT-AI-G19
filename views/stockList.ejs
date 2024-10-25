@@ -8,35 +8,59 @@
         <body>
             <script src="/scripts/allStocks.js"></script>
             <div class="wrapper">
-                <h1>List of Stocks <%= stockList.length %></h1>
+                <h1>List of Stocks (Data within 1 minute) </h1>
             <table class="table table-inverse">
                 <thead>
                     <tr>
                         <th>Symbol</th>
                         <th>Close</th>
-                        <th>Dividends</th>
                         <th>High</th>
                         <th>Low</th>
                         <th>Open</th>
-                        <th>Stock Splits</th>
                         <th>Volume</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><% for(company in stockList){ %>
+                    <% for(let company in stockList){ %>
+                    <tr>
                         <td><%= company.toUpperCase() %></td>
-                        <td><%= stockData[company].Close %></td>
-                        <td><%= stockData[company].Dividends %></td>
-                        <td><%= stockData[company].High %></td>
-                        <td><%= stockData[company].Low %></td>
-                        <td><%= stockData[company].Open %></td>
-                        <td><%= stockData[company].StockSplits %></td>
-                        <td><%= stockData[company].Volume %></td>
+                        <td class="close"><%= stockList[company].Close %></td>
+                        <td class="high"><%= stockList[company].High %></td>
+                        <td class="low"><%= stockList[company].Low %></td>
+                        <td class="open"><%= stockList[company].Open %></td>
+                        <td class="volume"><%= stockList[company].Volume %></td>
                     </tr>
                         <%} %>
                 </tbody>
             </table>
             </div>
-            
+            <!-- <script>
+                 async function fetchStockData() {
+                    try {
+                        const response = await fetch('/stocks/get_stock_data');  // This makes a GET request to your Express server
+                        const stockList = await response.json();  // Assuming server responds with JSON
+        
+                        // Update table data
+                        for (const [company, data] of Object.entries(stockList)) {
+                            const row = document.getElementById(`row-${company}`);
+                            if (row) {
+                                row.querySelector(".close").innerText = data.Close;
+                                row.querySelector(".high").innerText = data.High;
+                                row.querySelector(".low").innerText = data.Low;
+                                row.querySelector(".open").innerText = data.Open;
+                                row.querySelector(".volume").innerText = data.Volume;
+                            }
+                        }
+                    } catch (error) {
+                        console.error("Error fetching stock data:", error);
+                    }
+                }
+        
+                // Fetch stock data every 60 seconds (60000 ms)
+                setInterval(fetchStockData, 60000);
+        
+                // Initial load
+                fetchStockData();
+            </script>-->
         </body>
 </html>

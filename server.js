@@ -2,8 +2,10 @@ const express = require("express");
 const mongoose = require('mongoose');
 const loginRouter = require('./routes/loginRouter'); 
 const homeRouter = require('./routes/homeRouter');
+const stockRouter = require('./routes/stockRouter');
+const cryptoRouter = require('./routes/cryptoRouter')
 require('dotenv').config();
-const stockRouter = require('./routes/stockRouter')
+
 
 const app = express();
 const mongodbURL = process.env.MONGO;
@@ -23,6 +25,7 @@ app.use(express.static('public'));
 app.use('/', homeRouter);
 app.use('/accounts', loginRouter);
 app.use('/stocks', stockRouter)
+app.use('/crypto', cryptoRouter)
 
 app.use(express.static('public'));
 app.use(express.json());  // using json library 
