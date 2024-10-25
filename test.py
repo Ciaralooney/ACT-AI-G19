@@ -25,6 +25,7 @@ import json
     
 #     # Show the figure
 #     fig.show()
+
 def testMethod():
     historical_data = {}
     stock_symbols = {'aapl','msft','amzn','goog','googl','meta','nvda','tsla','nflx','intc','adbe','crm','orcl','amd','csco','shop'}
@@ -60,6 +61,16 @@ def get_stock_data():
         'low': float(data['Low'].iloc[0]),
         'volume': int(data['Volume'].iloc[0])  # Convert numpy.int64 to Python int
     })
-get_stock_data()
+stock = yf.Ticker('DOGE-USD')
+        
+df = yf.download(
+tickers = "DOGE-USD",
+period = "1d",
+interval = "1m"
+).iloc[-1]
+hist = stock.history(period = '1d',interval = '1m').iloc[-1].to_dict()
+dataDict = df.unstack().to_dict()
+print(json.dumps(dataDict))
+
 
 

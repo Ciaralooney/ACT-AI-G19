@@ -49,4 +49,4 @@ router.get('/search/:symbol', async (req, res) => {
 });
 
 
-module.exports = stockRouter;
+module.exports = router;
