@@ -5,24 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>
     <script src="/javascripts/scripts.js"></script>
-    <h1><%= title %></h1>
+    <title><%= title %></title>
 </head>
+<header>
+    <nav>
+        <!-- When the navigation button is clicked the submenu shows -->
+        <button id="nav" onclick="show()">Navigation menu</button>
+        <div class="hide" id="expandingMenu" >
+            <a class="subMenu thumb-pr mn" href="/">Home</a> 
+            <a class="subMenu thumb-pr mn" href="/portfolio">Portfolio List</a>
+            <a class="subMenu thumb-pr mn" href="/accounts/login">Login</a>
+        </div>
+    </nav>
+</header>
 <body>
-    <h1>Create a New Client Portfolio</h1>
-    <form action="/portfolio" method="POST">
-        <label for="clientName">Client Name:</label>
-        <input type="text" id="clientName" name="clientName" required>
-        <br><br>
+    <header>
+        <h1><%= title %></h1>
+        <div style="text-align: right;">
+            <input type="text" id="searchBar" placeholder="Search..." oninput="searchPortfolio()">
+            <a href="/portfolio/new"><button>Create New Portfolio</button></a>
+        </div>
+    </header>
 
-        <label for="clientDescription">Client Description:</label>
-        <textarea id="clientDescription" name="clientDescription" required></textarea>
-        <br><br>
+    <main>
+        <!-- Portfolio List -->
+        <ul id="portfolioList" style="max-height: 400px; overflow-y: auto;">
+            <% portfolios.forEach(portfolio => { %>
+                <li>
+                    <span><strong>Client Name:</strong> <a href="/portfolio/<%= portfolio._id %>/clientDetails"><%= portfolio.clientName %></a></span> |
+                    <span><strong>Fund Manager Email:</strong> <%= portfolio.fundManagerEmail %></span>
+                    <button onclick="location.href='/portfolio/<%= portfolio._id %>/manage'">Manage</button>
+                    <button onclick="deletePortfolio('<%= portfolio._id %>')">Delete</button>
+                </li>
+            <% }) %>
+        </ul>
+    </main>
 
-        <label for="fundManagerEmail">Fund Manager Email:</label>
-        <input type="email" id="fundManagerEmail" name="fundManagerEmail" required>
-        <br><br>
+    <script>
+        // Search function
+        function searchPortfolio() {
+            const input = document.getElementById('searchBar').value.toLowerCase();
+            const portfolioList = document.getElementById('portfolioList');
+            Array.from(portfolioList.getElementsByTagName('li')).forEach((item) => {
+                const clientName = item.textContent || item.innerText;
+                item.style.display = clientName.toLowerCase().includes(input) ? "" : "none";
+            });
+        }
 
-        <button type="submit">Create Portfolio</button>
-    </form>
+        // Delete Portfolio
+        function deletePortfolio(id) {
+            if (confirm('Are you sure you want to delete this portfolio?')) {
+                fetch(`/portfolio/${id}`, {
+                    method: 'DELETE'
+                }).then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        alert('Failed to delete portfolio');
+                    }
+                });
+            }
+        }
+    </script>
 </body>
 </html>

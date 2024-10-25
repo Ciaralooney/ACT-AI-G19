@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>
+    <script src="/javascripts/scripts.js"></script>
+    <h1><%= title %></h1>
+</head>
+<header>
+    <nav>
+        <button id="nav" onclick="show()">Navigation menu</button>
+        <div class="hide" id="expandingMenu" >
+            <a class="subMenu thumb-pr mn" href="/">Home</a> 
+            <a class="subMenu thumb-pr mn" href="/portfolio">Portfolio List</a>
+            <a class="subMenu thumb-pr mn" href="/accounts/login">Login</a>
+        </div>
+    </nav>
+</header>
+<body>
+    <h1>Create a New Client Portfolio</h1>
+
+    <!-- Success message -->
+    <% if (message) { %>
+        <p id="successMessage"><%= message %></p>
+    <% } %>
+  
+    <form action="/portfolio/new" method="POST">
+        <label for="clientName">Client Name:</label>
+        <input type="text" id="clientName" name="clientName" required>
+        <br><br>
+
+        <label for="clientDescription">Client Description:</label>
+        <textarea id="clientDescription" name="clientDescription" required></textarea>
+        <br><br>
+
+        <label for="fundManagerEmail">Fund Manager Email:</label>
+        <input type="email" id="fundManagerEmail" name="fundManagerEmail" required>
+        <br><br>
+
+        <button type="submit">Create Portfolio</button>
+    </form>
+
+    <script>
+        // Show an alert if a success message exists
+        const successMessage = document.getElementById('successMessage');
+        if (successMessage) {
+          alert(successMessage.textContent);
+        }
+      </script>
+      
+</body>
+</html>

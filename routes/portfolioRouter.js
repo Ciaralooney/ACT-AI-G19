@@ -3,74 +3,72 @@ const ClientPortfolio = require('../models/client')
 
 var portfolioRouter = express.Router();
 
-portfolioRouter.route('/portfolio').get((req, res, next) => {
-    res.render('portfolio', { title: 'Portfolio' });
-})
-.post(async (req, res) => {
-    const { clientName, clientDescription, fundManagerEmail } = req.body;
-    
-    try {
-      // // Find the fund manager (you can add a check to create the user if they don't exist)
-      // const fundManager = await User.findOne({ email: fundManagerEmail });
-  
-      // if (!fundManager) {
-      //   return res.status(404).send('Fund manager not found');
-      // }
-  
-      // Create a new portfolio
-      const newPortfolio = new ClientPortfolio({
-        clientName,
-        clientDescription,
-        fundManagerEmail,  // or fundManagerEmail if using a single schema
-        stockSymbols: [],
-        cryptoSymbols: [],
-      });
-  
-      await newPortfolio.save();
-      res.send('Portfolio created successfully');
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('Error creating portfolio');
-    }
-  });
-
-portfolioRouter.put('/portfolio/:id/stocks', async (req, res) => {
-    const { id } = req.params;
-    const { stockSymbols } = req.body;
-  
-    try {
-      const portfolio = await ClientPortfolio.findById(id);
-      if (!portfolio) {
-        return res.status(404).send('Portfolio not found');
-      }
-  
-      portfolio.stockSymbols.push(...stockSymbols); // Add new stock symbols
-      await portfolio.save();
-      res.send('Stock symbols added');
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('Error adding stock symbols');
-    }
+// Serve the Manage Portfolio
+portfolioRouter.get('/portfolio', async (req, res) => {
+  const portfolios = await ClientPortfolio.find();
+  res.render('portfolio', { title: 'Manage Portfolios', portfolios });
 });
 
-portfolioRouter.put('/portfolio/:id/cryptos', async (req, res) => {
-    const { id } = req.params;
-    const { cryptoSymbols } = req.body;
-  
-    try {
-      const portfolio = await ClientPortfolio.findById(id);
-      if (!portfolio) {
-        return res.status(404).send('Portfolio not found');
-      }
-  
-      portfolio.cryptoSymbols.push(...cryptoSymbols); // Add new crypto symbols
-      await portfolio.save();
-      res.send('Crypto symbols added');
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('Error adding crypto symbols');
-    }
+// Serve page for new portfolio creation
+portfolioRouter.get('/portfolio/new', (req, res) => {
+  const message = req.query.message || '';
+  res.render('portfolioNew', { title: 'Create New Portfolio', message });
+});
+
+// Handle new portfolio creation
+portfolioRouter.post('/portfolio/new', async (req, res) => {
+  const { clientName, clientDescription, fundManagerEmail } = req.body;
+  try {
+    const newPortfolio = new ClientPortfolio({
+      clientName,
+      clientDescription,
+      fundManagerEmail,
+      stockSymbols: [],
+      cryptoSymbols: [],
+    });
+
+    await newPortfolio.save();
+    console.log('Portfolio created with name:', clientName, 'and fund manager -', fundManagerEmail);
+    // Redirect back to the creation form with a success message
+    return res.redirect(`/portfolio/new?message=Portfolio created successfully for ${clientName}`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error creating portfolio');
+  }
+});
+
+portfolioRouter.get('/portfolio/:id/clientDetails', async (req, res) => {
+  const portfolio = await ClientPortfolio.findById(req.params.id);
+  const stockSymbols = ['AAPL', 'GOOGL', 'AMZN'];
+  const cryptoSymbols = ['BTC', 'ETH', 'LTC'];
+  res.render('clientDetails', { portfolio, stockSymbols, cryptoSymbols });
+});
+
+// Display and manage single portfolio
+portfolioRouter.get('/portfolio/:id/manage', async (req, res) => {
+  const portfolio = await ClientPortfolio.findById(req.params.id);
+  const stockSymbols = ['AAPL', 'GOOGL', 'AMZN'];
+  const cryptoSymbols = ['BTC', 'ETH', 'LTC'];
+  res.render('portfolioManage', { portfolio, stockSymbols, cryptoSymbols });
+});
+
+// Update single portfolio
+portfolioRouter.post('/portfolio/:id', async (req, res) => {
+  const { clientName, clientDescription, fundManagerEmail, stockSymbols, cryptoSymbols } = req.body;
+  await ClientPortfolio.findByIdAndUpdate(req.params.id, {
+      clientName,
+      clientDescription,
+      fundManagerEmail,
+      stockSymbols: Array.isArray(stockSymbols) ? stockSymbols : [stockSymbols],
+      cryptoSymbols: Array.isArray(cryptoSymbols) ? cryptoSymbols : [cryptoSymbols],
   });
-  
-  
+  res.redirect('/portfolio');
+});
+
+// Delete single portfolio
+portfolioRouter.delete('/portfolio/:id', async (req, res) => {
+  await ClientPortfolio.findByIdAndDelete(req.params.id);
+  res.sendStatus(200);
+});
+
 module.exports = portfolioRouter;
