@@ -45,7 +45,7 @@ def testMethod():
 # testMethod()
 
 def get_stock_data():
-    # symbol = request.args.get('symbol', 'AAPL')  # Default to AAPL if no symbol is provided
+    symbol = request.args.get('symbol', 'AAPL')  # Default to AAPL if no symbol is provided
     stock = yf.Ticker('aapl')
     data = stock.history(period='1d')  # Get daily stock data
 

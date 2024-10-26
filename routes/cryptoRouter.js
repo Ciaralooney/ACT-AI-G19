@@ -18,5 +18,19 @@ router.get('/',async(req,res)=>{
         res.status(500).json({ error: "Error fetching stock data" }); // Return error as JSON
     }
 })
+router.get('/detail/:symbol', async(req,res)=>{
+    var symbol = req.params.symbol
+    try{
+        const response = await axios.post('http://localhost:5000/api/stockGraph',{
+            params: {symbol}
+        });
+        const graphHtml = response.data.graph_html;
+        const stockInfo = response.data.stockData;
+        res.render('../views/cryptoView',{graphHtml:graphHtml,symbol : symbol, stockInfo:stockInfo})
+    }catch(error){
+        console.error('Error fetching graph HTML:', error);
+        res.status(500).send('Error fetching graph data');
+    }
+})
 
 module.exports = router

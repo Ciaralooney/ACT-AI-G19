@@ -42,7 +42,7 @@ def get_crypto():
             interval = "1m"
             ).iloc[-1]
         dataDict = df.unstack().to_dict()
-        dataDict[symbol]['Volume'] = dataDict[symbol]['Volume'] / 1e6  # Convert to millions
+        # dataDict[symbol]['Volume'] = dataDict[symbol]['Volume'] / 1e6  # Convert to millions
         historical_data.update(dataDict)
         # print(historical_data)
         # for stock in hist:
@@ -79,14 +79,15 @@ def gen_graph():
     if not symbol:
         return jsonify({'error': 'No symbol provided'}), 400
     
-    data = yf.download(symbol, period='1d',interval='15m')
+    data = yf.download(symbol, period='1d',interval='5m')
+    dataDict = data.iloc[-1].unstack().to_dict()
     # print(data)
     yData = data['Close']
-    print(yData)
-    fig = px.line(yData,x=yData.index,y=symbol, title=f'{symbol} Stock Price Over Time')
+    # print(dataDict)
+    fig = px.line(yData,x=yData.index,y=symbol, title=f'{symbol} Price Over Time')
 
     graph_html = pio.to_html(fig, full_html=False)
-    return jsonify({'graph_html' : graph_html})
+    return jsonify({'graph_html' : graph_html,'stockData':dataDict[symbol]})
     
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
