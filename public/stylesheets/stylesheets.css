@@ -5,19 +5,16 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
 }
-
 input {
     padding: 10px;
     margin: 10px;
     font-size: 1em;
 }
-
 button {
     padding: 10px;
     font-size: 1em;
     cursor: pointer;
 }
-
 #stockData {
     margin-top: 20px;
     border: 1px solid #ddd;
@@ -26,11 +23,10 @@ button {
 table{
     overflow-x: scroll;
     overflow-y:scroll;
-}
-table {
-    width: 100%;
+    width: 80%;
     border-collapse: collapse;
-  }
+    margin : 0 auto;
+}
 table, th, td {
     border: 1px solid black;
   }
@@ -39,12 +35,28 @@ th, td {
     text-align: center;
   }
 .stockGraph{
-    width: 600px;     
-    height: 400px;     
+    margin: 0 auto; 
+    width: 1200px;     
+    height: 800px;     
     overflow: auto;    
     border: 1px solid #ccc;  
     padding: 10px;   
 }
 .wrapper{
     text-align: center;
+}
+a {
+    color: black;     /* Default link color */
+    text-decoration:none;   /* Optional: removes underline */
+    font-weight: bold;
+}
+
+a:visited {
+    color: black;    
+    text-decoration:none;      /* Same color as the default link color */
+    font-weight: bold
+}
+.return{
+    text-align: right;
+    font-size: large;
 }
