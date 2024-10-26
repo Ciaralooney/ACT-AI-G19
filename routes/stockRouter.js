@@ -21,22 +21,19 @@ router.get('/',async (req,res)=>{
         res.status(500);
     }
 })
-router.get('/get_stock_data', async (req, res) => {
-    var listSymbols = ['aapl','msft','amzn','goog','googl','meta','nvda','tsla','nflx','intc','adbe','crm','orcl','amd','csco','shop'];
-    
-    try {
-        const response = await axios.post("http://localhost:5000/get_stock_data", 
-            { array: { listSymbols } },
-            { headers: { 'Content-Type': 'application/json' }}
-        );
-        const stockData = response.data;
-        res.json(stockData); // Return JSON directly
-    } catch (error) {
-        console.error("Error fetching stock data:", error);
-        res.status(500).json({ error: "Error fetching stock data" }); // Return error as JSON
+router.get('/detail/:symbol', async(req, res)=>{
+    const symbol = req.params.symbol
+    try{
+        const response = await axios.post('http://localhost:5000/api/stockGraph',{
+            params: {symbol}
+        });
+        const graphHtml = response.data.graph_html;
+        res.render('../views/stockView',{graphHtml:graphHtml})
+    }catch(error){
+        console.error('Error fetching graph HTML:', error);
+        res.status(500).send('Error fetching graph data');
     }
-});
-
+})
 router.get('/search/:symbol', async (req, res) => {
     const symbol = req.params.symbol;
     try {
