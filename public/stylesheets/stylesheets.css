@@ -38,3 +38,13 @@ th, td {
     padding: 10px;
     text-align: center;
   }
+.stockGraph{
+    width: 600px;     
+    height: 400px;     
+    overflow: auto;    
+    border: 1px solid #ccc;  
+    padding: 10px;   
+}
+.wrapper{
+    text-align: center;
+}
