@@ -28,7 +28,8 @@ router.get('/detail/:symbol', async(req, res)=>{
             params: {symbol}
         });
         const graphHtml = response.data.graph_html;
-        res.render('../views/stockView',{graphHtml:graphHtml})
+        const stockInfo = response.data.stockData;
+        res.render('../views/stockView',{graphHtml:graphHtml,symbol : symbol, stockInfo:stockInfo})
     }catch(error){
         console.error('Error fetching graph HTML:', error);
         res.status(500).send('Error fetching graph data');
