@@ -1,6 +1,7 @@
 import pandas as pd
 import yfinance as yf
 import plotly.express as px
+import plotly.io as pio
 from flask import Flask, render_template_string, jsonify, request
 import json
 
@@ -70,8 +71,22 @@ def get_stock_data():
         'volume': int(data['Volume'].iloc[0])  # Convert numpy.int64 to Python int
     })
 
-
+@app.route('/api/stockGraph', methods = ['POST'])
+def gen_graph():
+    data = request.get_json()
+    symbol = data.get('params', {}).get('symbol')
     
+    if not symbol:
+        return jsonify({'error': 'No symbol provided'}), 400
+    
+    data = yf.download(symbol, period='1d',interval='15m')
+    # print(data)
+    yData = data['Close']
+    print(yData)
+    fig = px.line(yData,x=yData.index,y=symbol, title=f'{symbol} Stock Price Over Time')
 
+    graph_html = pio.to_html(fig, full_html=False)
+    return jsonify({'graph_html' : graph_html})
+    
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
