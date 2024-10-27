@@ -5,7 +5,6 @@ const User = require('../models/users');
 const signupRouter = express.Router();
 
 
-// Register route
 signupRouter.route('/register')
     .get((req, res) => {
         res.render('register', { title: 'Register' });
