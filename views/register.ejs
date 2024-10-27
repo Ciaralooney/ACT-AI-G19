@@ -3,6 +3,7 @@
     <head>
         <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>
         <script src="/javascripts/scripts.js"></script>
+        
     </head>
     <header>
         <h1><%= title %></h1>
@@ -10,8 +11,8 @@
     <nav>
         <%- include ('partials/headers'); %>
     </nav>
+    <div id="message"></div>
 <body>
-    <h1>Signup</h1>
     <form action="/accounts/register" method="POST">
         <label>Username:</label><br>
         <input type="text" name="username" required><br><br>

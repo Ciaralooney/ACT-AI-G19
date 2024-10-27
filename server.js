@@ -9,12 +9,13 @@ const loginRouter = require('./routes/loginRouter');
 const homeRouter = require('./routes/homeRouter');
 const userRouter = require('./routes/userRouter');
 const signupRouter = require("./routes/signUpRouter");
+const cryptoRouter = require("./routes/cryptoRouter");
 const stockRouter = require('./routes/stockRouter');
 const passwordResetRouter = require('./routes/passwordResetRouter'); 
 
 const secret = process.env.JWT_SECRET;
 
-const mongodbURL = process.env.MONGO; // Use the connection string from the .env
+const mongodbURL = process.env.MONGOLINK; // Use the connection string from the .env
 const port = 3000;
 
 app.use(session({
@@ -35,9 +36,11 @@ app.use(express.static('public')); // Serve static files from public directory
 app.use('/', homeRouter);
 app.use('/accounts', loginRouter);
 app.use('/stocks', stockRouter);
+app.use('/crypto', cryptoRouter);
 app.use('/accounts', signupRouter); 
 app.use('/accounts', passwordResetRouter);
 app.use('/user', userRouter);
+
 
 // Connect to MongoDB using Mongoose
 mongoose.connect(mongodbURL)
