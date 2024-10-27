@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>
+        <script src="/javascripts/scripts.js"></script>
+    </head>
+    <header>
+        <h1><%= title %></h1>
+    </header>
+    <nav>
+        <%- include ('partials/headers'); %>
+    </nav>
+<body>
+    <header>
+        <h1>Welcome to Your Profile</h1>
+    </header>
+    
+    <main>
+        <section>
+            <h2>Hello, <%= name %>!</h2>
+            <p>This is your profile page.</p>
+
+            <div class="profile-details">
+                <p><strong>Email:</strong> user@example.com</p>
+                <p><strong>Member Since:</strong> September 2024</p>
+            </div>
+
+            
+    <p><a href="/accounts/request-password-reset">Reset your password</a></p>
+        </section>
+    </main>
+ </body>
+</html>
