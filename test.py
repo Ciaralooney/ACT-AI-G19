@@ -4,27 +4,27 @@ import plotly.express as px
 # from flask import Flask, render_template_string
 from flask import Flask, render_template_string, jsonify, request
 import json
-tickers = ['AAPL', 'GOOGL', 'MSFT']
+# tickers = ['AAPL', 'GOOGL', 'MSFT']
 
-# Step 2: Download historical data for the tickers
-data = yf.download(tickers, period='6mo', interval='1d')
+# # Step 2: Download historical data for the tickers
+# data = yf.download(tickers, period='6mo', interval='1d')
 
-# Step 3: Extract 'Close' prices for each ticker
-closing_prices = data['Close']
-print(closing_prices)
-# Step 4: Plot each ticker's closing prices using Plotly Express
-for ticker in tickers:
-    # Create a new plot for each ticker
-    fig = px.line(
-        closing_prices, 
-        x=closing_prices.index, 
-        y=ticker, 
-        title=f'{ticker} Closing Price Over Time',
-        labels={'x': 'Date', 'y': 'Price (USD)'}
-    )
+# # Step 3: Extract 'Close' prices for each ticker
+# closing_prices = data['Close']
+# print(closing_prices)
+# # Step 4: Plot each ticker's closing prices using Plotly Express
+# for ticker in tickers:
+#     # Create a new plot for each ticker
+#     fig = px.line(
+#         closing_prices, 
+#         x=closing_prices.index, 
+#         y=ticker, 
+#         title=f'{ticker} Closing Price Over Time',
+#         labels={'x': 'Date', 'y': 'Price (USD)'}
+#     )
     
-    # Show the figure
-    fig.show()
+#     # Show the figure
+#     fig.show()
 
 def testMethod():
     historical_data = {}
@@ -61,7 +61,7 @@ def get_stock_data():
         'low': float(data['Low'].iloc[0]),
         'volume': int(data['Volume'].iloc[0])  # Convert numpy.int64 to Python int
     })
-# stock = yf.Ticker('DOGE-USD')
+stock = yf.Ticker('AAPL')
 # hist = stock.history(period = '1d',interval = '1m').iloc[-1].to_dict()    
 
 # df = yf.download(
@@ -69,8 +69,8 @@ def get_stock_data():
 # period = "1d",
 # interval = "1m"
 # ).iloc[-1]
-# dataDict = df.unstack().to_dict()
-# print(json.dumps(dataDict))
+stockFin = stock.financials
+print((stockFin))
 
 
 
