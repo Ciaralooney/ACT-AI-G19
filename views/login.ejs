@@ -7,6 +7,9 @@
     <header>
         <h1><%= title %></h1>
     </header>
+    <nav>
+        <%- include ('partials/headers'); %>
+    </nav>
 <body>
     <form action="/accounts/login" method="POST">
         <label>Email:</label><br>
@@ -17,5 +20,7 @@
 
         <button type="submit">Login</button>
     </form>
+    <p><a href="/accounts/request-password-reset">Forgot your password?</a></p>
+
 </body>
 </html>
