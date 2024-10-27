@@ -21,6 +21,7 @@ router.get('/',async (req,res)=>{
         res.status(500);
     }
 })
+//Gets a detailed page of the selected stock
 router.get('/detail/:symbol', async(req, res)=>{
     const symbol = req.params.symbol
     try{
