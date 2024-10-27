@@ -69,8 +69,12 @@ stock = yf.Ticker('AAPL')
 # period = "1d",
 # interval = "1m"
 # ).iloc[-1]
-stockFin = stock.financials
-print((stockFin))
+dict ={}
+stockFin = stock.financials.iloc[:,0]
+for index in stockFin.index:
+    dict[index] = stockFin[index]
+
+print(json.dumps(dict))
 
 
 
