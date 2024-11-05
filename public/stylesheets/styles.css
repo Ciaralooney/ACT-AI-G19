@@ -11,7 +11,14 @@ main {
     padding: 40px 20px 40px 20px;
 }
 
-
+.error-message {
+    color: red;
+    font-weight: bold;
+}
+.success-message {
+    color: green;
+    font-weight: bold;
+}
 header {
     background: linear-gradient(135deg, #807182, #a48ba5);
     color: #160f29;

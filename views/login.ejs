@@ -13,7 +13,9 @@
     </nav>
     <div id="message"></div>
 <body>
-    
+    <% if (errorMessage) { %>
+        <p class="error-message"><%= errorMessage %></p>
+    <% } %>
     <form action="/accounts/login" method="POST">
         <label>Email:</label><br>
         <input type="email" name="email" required><br><br>

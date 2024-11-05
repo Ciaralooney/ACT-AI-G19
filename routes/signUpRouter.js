@@ -7,14 +7,14 @@ const signupRouter = express.Router();
 
 signupRouter.route('/register')
     .get((req, res) => {
-        res.render('register', { title: 'Register' });
+        res.render('register', { title: 'Register', errorMessage: null });
     })
     .post(async (req, res) => {
         const { username, email, password } = req.body;
 
         try {
             let user = await User.findOne({ email });
-            if (user) return res.status(400).json({ msg: 'User already exists' });
+            if (user) return res.render('register', { title: 'Register', errorMessage: 'User already exists' });
 
             const salt = await bcrypt.genSalt(12);
             const hashedPassword = await bcrypt.hash(password, salt);
