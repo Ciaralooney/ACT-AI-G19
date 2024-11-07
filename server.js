@@ -27,7 +27,6 @@ app.use('/accounts', loginRouter);
 app.use('/stocks', stockRouter)
 app.use('/crypto', cryptoRouter)
 
-app.use(express.static('public'));
 app.use(express.json());  // using json library 
 app.use(express.urlencoded({ extended: false })); // parses incoming URL-encoded form data 
 //app.use(express.static(path.join(__dirname, 'public')));  // if displaying a file it will be in public folder
