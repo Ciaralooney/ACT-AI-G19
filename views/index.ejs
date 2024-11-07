@@ -2,19 +2,13 @@
     <html>
     <head>
         <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>
-        <script src="/javascripts/scripts.js"></script>
     </head>
     <header>
         <h1><%= title %></h1>
     </header>
-        <nav>
-            <!-- When the navigation button is clicked the submenu shows -->
-            <button id="nav" onclick="show()">Navigation menu</button>
-            <div class="hide" id="expandingMenu" >
-                <a class="subMenu thumb-pr mn" href="/">Home</a> 
-                <a class="subMenu thumb-pr mn" href="/accounts/login">Login</a>
-            </div>
-        </nav>
+    <nav>
+        <%- include ('partials/headers'); %>
+    </nav>
         <main>
 <body>
     <p>Hello Guest. Please login or signup via the navigation</p>
@@ -26,11 +20,11 @@
           <img src="/images/image1.png" height="150" width="100">
           <p>Buy Stocks and Crypto</p>
         </div>
-        <div class="image-cols">
+        <a href ='/stocks'><div class="image-cols">
           <!-- Image Source: pngwing.com -->
           <img src="/images/image2.png" height="150" width="100">
           <p>Manage Assets</p>
-        </div>
+        </div></a>
         <div class="image-cols">
           <!-- Image Source: pngwing.com -->
           <img src="images/image3.png" height="150" width="100">

@@ -1,0 +1,40 @@
+<html>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Stock Tracker</title>
+            <link rel="stylesheet" type='text/css'href="/stylesheets/stylesheets.css">
+        </head>
+        <body>
+            <div class="wrapper">
+                <h1>List of Crypto (Data within 1 minute) </h1>
+            <table class="table table-inverse">
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Adj Close</th>
+                        <th>Close</th>
+                        <th>High</th>
+                        <th>Low</th>
+                        <th>Open</th>
+                        <th>Volume</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(let crypto in stockList){ %>
+                        <tr>
+                        <td><a href='/crypto/detail/<%= crypto.toUpperCase()%>'><%= crypto.toUpperCase() %></a></td>
+                        <td><%= stockList[crypto]['Adj Close'].toFixed(3) %></td>
+                        <td class="close"><%= stockList[crypto].Close.toFixed(3) %></td>
+                        <td class="high"><%= stockList[crypto].High.toFixed(3) %></td>
+                        <td class="low"><%= stockList[crypto].Low.toFixed(3) %></td>
+                        <td class="open"><%= stockList[crypto].Open.toFixed(3) %></td>
+                        <td class="volume"><%= stockList[crypto].Volume %></td>
+                    </tr>
+                        <%} %>
+                </tbody>
+            </table>
+            <a href='/stocks' class = 'return'><h4>View Tech Stocks</h4></a>
+            </div>
+        </body>
+</html>

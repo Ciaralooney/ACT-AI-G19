@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Stock: <%= symbol %></title>
+        <link rel="stylesheet" type='text/css'href="/stylesheets/stylesheets.css">
+    </head>
+    <body>
+        <div class ='wrapper'>
+            <h1>Daily Graph of <%= symbol%></h1>
+            <div class = 'stockGraph'>
+                <%- graphHtml %>
+            </div>
+            <div class="stockInfo">
+                <p>Company Name: <%= symbol%></p>
+                <p>Adj. Close: <%= stockInfo['Adj Close'] %></p>
+                <p>Close: <%= stockInfo['Close'] %></p>
+                <p>High: <%= stockInfo['High'] %></p>
+                <p>Low: <%= stockInfo['Low'] %></p>
+                <p>Open: <%= stockInfo['Open'] %></p>
+                <p>Volume: <%= stockInfo['Volume'] %></p>
+                <!-- Display more stock info as needed -->
+            </div>
+            <a href='/crypto' class = 'return'><h4>Back to Crypto</h4></a>
+        </div>
+    </body>
+</html>

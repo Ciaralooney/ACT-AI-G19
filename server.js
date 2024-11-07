@@ -1,46 +1,57 @@
 const express = require("express");
-const mongoose = require('mongoose');
-const loginRouter = require('./routes/loginRouter'); 
-const homeRouter = require('./routes/homeRouter');
-require('dotenv').config();
+const session = require("express-session");
+const flash = require("connect-flash");
+const mongoose = require("mongoose");
+
 
 const app = express();
-const mongodbURL = process.env.MONGO;
+const url = "mongodb://127.0.0.1:27017/loginRoute"
 const port = 3000;
 
-// view engine setup
-app.set('view engine', 'ejs'); // specifying the view engine in the express app
+require('dotenv').config();
+// app.use(session({
+//   secret: process.env.SESSION_SECRET,
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: { secure: false }
+// }));
 
-// app.use(express.json()); // parsing JSON data
-app.use(express.urlencoded({ extended: true })); // parsing user input
-// logs info about request method, status code, and response time
-//var logger = require('morgan');
 
-app.use(express.static('public'));
+app.use(flash());
 
-// these are found in the roots folder since they handle a url, these are get methods
-app.use('/', homeRouter);
-app.use('/accounts', loginRouter);
+// View engine setup
+app.set("view engine", "ejs");
 
-app.use(express.static('public'));
-app.use(express.json());  // using json library 
-app.use(express.urlencoded({ extended: false })); // parses incoming URL-encoded form data 
-//app.use(express.static(path.join(__dirname, 'public')));  // if displaying a file it will be in public folder
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
-// Connect to MongoDB using Mongoose
-mongoose.connect(mongodbURL)
+const loginRouter = require("./routes/loginRouter");
+const homeRouter = require("./routes/homeRouter");
+const userRouter = require("./routes/userRouter");
+const signupRouter = require("./routes/signUpRouter");
+const cryptoRouter = require("./routes/cryptoRouter");
+const stockRouter = require("./routes/stockRouter");
+const passwordResetRouter = require("./routes/passwordResetRouter");
+const profileRouter = require("./routes/profileRouter");
+
+app.use("/", homeRouter);
+app.use("/accounts", loginRouter);
+app.use("/stocks", stockRouter);
+app.use("/crypto", cryptoRouter);
+app.use("/accounts", signupRouter);
+app.use("/accounts", passwordResetRouter);
+app.use("/user", profileRouter);
+
+// Connect to MongoDB
+mongoose
+  .connect(process.env.MONGOLINK)
   .then(() => {
-    console.log(' Successfully connected to server');
+    console.log("Successfully connected to online server");
   })
   .catch((error) => {
-    console.error('Error connecting to server:', error);
+    console.error("Error connecting to online server:", error);
   });
-  
-  
-  app.listen(port, () => {
-    console.log(`Server started on port ${port}`);
-  });
-  
 
-  // exporting the app object to make it available in other files 
-  module.exports = app;
+app.listen(port, () => {
+  console.log(`Server started on port ${port}`);
+});
