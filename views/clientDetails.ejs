@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Portfolio</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>
+    <script src="/javascripts/scripts.js"></script>
+</head>
+<header>
+    <nav>
+        <!-- When the navigation button is clicked the submenu shows -->
+        <button id="nav" onclick="show()">Navigation menu</button>
+        <div class="hide" id="expandingMenu" >
+            <a class="subMenu thumb-pr mn" href="/">Home</a> 
+            <a class="subMenu thumb-pr mn" href="/portfolio">Portfolio List</a>
+            <a class="subMenu thumb-pr mn" href="/accounts/login">Login</a>
+        </div>
+    </nav>
+</header>
+<body>
+    <h1>Client Details: <%= portfolio.clientName %></h1>    
+    <div style="text-align: right;">
+        <button onclick="location.href='/portfolio/<%= portfolio._id %>/manage'">Manage</button>
+    </div>
+    <br>
+        <label for="clientName"><b>Client Name:</b> <%= portfolio.clientName %><br></label>
+
+        <label for="clientDescription"><b>Client Description:</b> <%= portfolio.clientDescription %><br></label>
+
+        <label for="fundManagerEmail"><b>Fund Manager Email:</b> <%= portfolio.fundManagerEmail %><br></label>
+        
+
+        <h3>Stock Symbols:</h3>
+        <% stockSymbols.forEach(symbol => { %>
+            <span>
+                <%- portfolio.stockSymbols.includes(symbol) ? '&#9745;' : '&#9744;' %> 
+                <%= symbol %>
+            </span>
+            <br>
+        <% }) %>
+        
+
+        <h3>Crypto Symbols:</h3>
+        <% cryptoSymbols.forEach(symbol => { %>
+            <span>
+                <%- portfolio.cryptoSymbols.includes(symbol) ? '&#9745;' : '&#9744;' %>
+                <%= symbol %>
+            </span>
+            <br>
+        <% }) %>
+</body>
+</html>
