@@ -22,7 +22,7 @@ def get_stocks():
             interval = '1m'
             ).iloc[-1].to_dict()
         # hist['Volume'] = hist.get('Volume') / 1e6 # Convert to millions
-        print(hist)
+        # print(hist)
         historical_data[symbol] = hist
     # print(historical_data)
     return jsonify(historical_data)
@@ -70,6 +70,7 @@ def get_stock_data():
         'low': float(data['Low'].iloc[0]),
         'volume': int(data['Volume'].iloc[0])  # Convert numpy.int64 to Python int
     })
+
 
 @app.route('/api/stockGraph', methods = ['POST'])
 def gen_graph():

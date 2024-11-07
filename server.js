@@ -8,12 +8,12 @@ const url = "mongodb://127.0.0.1:27017/loginRoute"
 const port = 3000;
 
 require('dotenv').config();
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false }
-}));
+// app.use(session({
+//   secret: process.env.SESSION_SECRET,
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: { secure: false }
+// }));
 
 
 app.use(flash());
