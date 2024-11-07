@@ -10,24 +10,19 @@
     <nav>
         <%- include ('partials/headers'); %>
     </nav>
-<body>
-    <header>
-        <h1>Welcome to Your Profile</h1>
-    </header>
+    <body>
+        <main>
+            <section>
+                <h2>Hello, <%= username %>!</h2>
+                <p>This is your profile page.</p>
     
-    <main>
-        <section>
-            <h2>Hello, <%= name %>!</h2>
-            <p>This is your profile page.</p>
-
-            <div class="profile-details">
-                <p><strong>Email:</strong> user@example.com</p>
-                <p><strong>Member Since:</strong> September 2024</p>
-            </div>
-
-            
-    <p><a href="/accounts/request-password-reset">Reset your password</a></p>
-        </section>
-    </main>
- </body>
-</html>
+                <div class="profile-details">
+                    <p><strong>Username:</strong> <%= username %></p>
+                    <p><strong>Email:</strong> <%= email %></p>
+                </div>
+    
+                <p><a href="/accounts/request-password-reset">Reset your password</a></p>
+            </section>
+        </main>
+    </body>
+    </html>
