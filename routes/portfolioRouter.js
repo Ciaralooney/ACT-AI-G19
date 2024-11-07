@@ -1,7 +1,6 @@
 const express = require('express');
 const ClientPortfolio = require('../models/client')
-
-var portfolioRouter = express.Router();
+var portfolioRouter = expres.Router();
 
 // Serve the Manage Portfolio
 portfolioRouter.get('/portfolio', async (req, res) => {
