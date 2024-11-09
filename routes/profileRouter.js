@@ -18,7 +18,6 @@ profileRouter.get("/profile", async (req, res) => {
       title: "Your Profile",
       username: user.username,
       email: user.email,
-      memberSince: user.createdAt,
     });
   } catch (error) {
     console.error("Error fetching user data:", error);
