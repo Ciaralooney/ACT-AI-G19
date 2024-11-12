@@ -3,10 +3,6 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const mongoose = require("mongoose");
 
-const session = require("express-session");
-const flash = require("connect-flash");
-const mongoose = require("mongoose");
-
 const app = express();
 const url = "mongodb://127.0.0.1:27017/loginRoute"
 const port = 3000;
@@ -50,22 +46,12 @@ app.use("/user", profileRouter);
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGOLINK)
-// Connect to MongoDB
-mongoose
-  .connect(process.env.MONGOLINK)
   .then(() => {
-    console.log("Successfully connected to online server");
     console.log("Successfully connected to online server");
   })
   .catch((error) => {
     console.error("Error connecting to online server:", error);
-    console.error("Error connecting to online server:", error);
   });
-
-app.listen(port, () => {
-  console.log(`Server started on port ${port}`);
-});
-
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
