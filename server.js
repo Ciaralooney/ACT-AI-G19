@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require('mongoose');
 const loginRouter = require('./routes/loginRouter'); 
 const homeRouter = require('./routes/homeRouter');
+const ratingRouter = require('./routes/ratingRouter'); // Import the router file
 require('dotenv').config();
 
 const app = express();
@@ -21,11 +22,15 @@ app.use(express.static('public'));
 // these are found in the roots folder since they handle a url, these are get methods
 app.use('/', homeRouter);
 app.use('/accounts', loginRouter);
+app.use('/rating', ratingRouter);
+
 
 app.use(express.static('public'));
 app.use(express.json());  // using json library 
 app.use(express.urlencoded({ extended: false })); // parses incoming URL-encoded form data 
 //app.use(express.static(path.join(__dirname, 'public')));  // if displaying a file it will be in public folder
+
+
 
 // Connect to MongoDB using Mongoose
 mongoose.connect(mongodbURL)

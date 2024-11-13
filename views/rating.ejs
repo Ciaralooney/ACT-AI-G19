@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Us</title>
+    <link rel="stylesheet" href="/styles.css"> 
+</head>
+<body>
+    <div class="rating-container">
+        <h2>Rate Your Experience with Us</h2>
+        <!--form-->
+        <form action="/submit-rating" method="POST">
+            <div class="rating-options">
+                <label>Rate us:</label><br>
+                <!--radio buttons for rating (1-5)-->
+                <% for (let i = 1; i <= 5; i++) { %> 
+                    <input type="radio" id="rate<%= i %>" name="rating" value="<%= i %>" required>
+                    <label for="rate<%= i %>"><%= i %></label>
+                <% } %>
+            </div>
+            <div class="comment-section">
+                <!--Comment text field-->
+                <label for="comment">Comments:</label><br>
+                <textarea id="comment" name="comment" rows="4" cols="50" placeholder="Please leave your feedback here..."></textarea>
+            </div>
+            <!--submission button-->
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
