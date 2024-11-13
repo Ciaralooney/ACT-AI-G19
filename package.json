@@ -25,5 +25,11 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
-  }
+  },
+  "name": "act-ai-g19",
+  "version": "1.0.0",
+  "description": "1. Download code as zip file. <br>\r <img src=\"https://github.com/user-attachments/assets/0bed7b95-6d42-447b-88d6-eba616ae8676\" height=\"170\"> <br>",
+  "main": "server.js",
+  "author": "",
+  "license": "MIT"
 }
