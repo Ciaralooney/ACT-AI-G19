@@ -4,7 +4,7 @@ const flash = require("connect-flash");
 const mongoose = require("mongoose");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 require('dotenv').config();
 app.use(session({
@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 const homeRouter = require("./routes/homeRouter");
-const loginRouter = require('.routes/loginRouter')
+const loginRouter = require("./routes/loginRouter")
 const userRouter = require("./routes/userRouter");
 const signupRouter = require("./routes/signUpRouter");
 const cryptoRouter = require("./routes/cryptoRouter");
