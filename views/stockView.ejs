@@ -6,6 +6,9 @@
         <link rel="stylesheet" type='text/css'href="/stylesheets/stylesheets.css">
     </head>
     <body>
+        <nav>
+            <%- include ('partials/headers'); %>
+        </nav>
         <div class ='wrapper'>
             <h1>Daily Graph of <%= symbol%></h1>
             <div class = 'stockGraph'>
@@ -20,6 +23,22 @@
                 <p>Open: <%= stockInfo['Open'] %></p>
                 <p>Volume: <%= stockInfo['Volume'] %></p>
                 <!-- Display more stock info as needed -->
+                <section>
+                    <h2>Company Description</h2>
+                    <p><%= financial.Description %></p>
+                </section>    
+                <section>
+                    <h2>Profitability</h2>
+                    <p><strong>Profit Margin:</strong> <%= (financial.Profitability["Profit Margin"] * 100).toFixed(2) %>%</p>
+                    <p><strong>Operating Margin:</strong> <%= (financial.Profitability["Operating Margin"] * 100).toFixed(2) %>%</p>
+                </section>
+            
+                <!-- Management Effectiveness Section -->
+                <section>
+                    <h2>Management Effectiveness</h2>
+                    <p><strong>Return on Assets:</strong> <%= (financial["Management Effectiveness"]["Return on Assets"] * 100).toFixed(2) %>%</p>
+                    <p><strong>Return on Equity:</strong> <%= (financial["Management Effectiveness"]["Return on Equity"] * 100).toFixed(2) %>%</p>
+                </section>
             </div>
             <a href='/stocks' class = 'return'><h4>Back to Stocks</h4></a>
         </div>
