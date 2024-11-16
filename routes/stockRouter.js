@@ -3,9 +3,6 @@ const axios = require('axios')
 
 const router = express.Router();
 const flaskDomain = "https://yfianance-api-904c5fa45cd2.herokuapp.com";
-router.get('/search', (req,res)=>{
-    res.render('../views/stockSearch')
-})
 
 router.get('/',async (req,res)=>{
     var listSymbols = ['aapl','msft','amzn','goog','googl','meta','nvda','tsla','nflx','intc','adbe','crm','orcl','amd','csco','shop']
@@ -25,7 +22,7 @@ router.get('/',async (req,res)=>{
 router.get('/detail/:symbol', async(req, res)=>{
     const symbol = req.params.symbol
     try{
-        const response = await axios.post(`${flaskDomain}/stockGraph`,{
+        const response = await axios.post(`${flaskDomain}/api/stockGraph`,{
             params: {symbol}
         });
         const graphHtml = response.data.graph_html;
