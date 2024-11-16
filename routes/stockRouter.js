@@ -1,8 +1,8 @@
 const express = require('express');
 const axios = require('axios')
 
-var router = express.Router();
-
+const router = express.Router();
+const flaskDomain = "https://yfianance-api-904c5fa45cd2.herokuapp.com";
 router.get('/search', (req,res)=>{
     res.render('../views/stockSearch')
 })
@@ -11,7 +11,7 @@ router.get('/',async (req,res)=>{
     var listSymbols = ['aapl','msft','amzn','goog','googl','meta','nvda','tsla','nflx','intc','adbe','crm','orcl','amd','csco','shop']
     // var pm = JSON.stringify(listSymbols)
     try {
-        const response = await axios.post("http://localhost:5000/get_stock_data", 
+        const response = await axios.post(`${flaskDomain}/get_stock_data`, 
             {array: {listSymbols}},
             { headers: { 'Content-Type': 'application/json' }}
         )
@@ -25,7 +25,7 @@ router.get('/',async (req,res)=>{
 router.get('/detail/:symbol', async(req, res)=>{
     const symbol = req.params.symbol
     try{
-        const response = await axios.post('http://localhost:5000/api/stockGraph',{
+        const response = await axios.post(`${flaskDomain}/stockGraph`,{
             params: {symbol}
         });
         const graphHtml = response.data.graph_html;
