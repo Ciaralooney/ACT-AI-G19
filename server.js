@@ -11,11 +11,10 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }
+  cookie: { secure: false , httpOnly: true, maxAge: 1000 * 60 * 60 * 24 }
   }));
 
-
-app.use(flash());
+  app.use(flash());
 
 // View engine setup
 app.set("view engine", "ejs");
@@ -27,16 +26,22 @@ const homeRouter = require("./routes/homeRouter");
 const loginRouter = require("./routes/loginRouter")
 const userRouter = require("./routes/userRouter");
 const signupRouter = require("./routes/signUpRouter");
+const logoutRouter = require("./routes/logoutRouter");
 const cryptoRouter = require("./routes/cryptoRouter");
 const stockRouter = require("./routes/stockRouter");
 const passwordResetRouter = require("./routes/passwordResetRouter");
 const profileRouter = require("./routes/profileRouter");
 const portfolioRouter = require('./routes/portfolioRouter')
 
+app.use((req, res, next) => {
+  res.locals.session = req.session;
+  next();
+});
 // these are found in the roots folder since they handle a url, these are get methods
 app.use('/', homeRouter);
 app.use('/accounts', loginRouter);
 app.use('/', portfolioRouter)
+app.use('/Logout', logoutRouter)
 app.use("/stocks", stockRouter);
 app.use("/crypto", cryptoRouter);
 app.use("/accounts", signupRouter);
