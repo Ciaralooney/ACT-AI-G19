@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rate Us</title>
+    <title><%= title %></title>
     <link rel="stylesheet" href="/rating.css"> 
 </head>
+<header>
+    <h1><%= title %></h1>
+  </header>
+<nav>
+    <%- include ('partials/headers'); %>
+  </nav>
 <body>
     <div class="rating-container">
         <h2>Rate Your Experience with Us</h2>
@@ -39,5 +45,4 @@
         charCountDisplay.textContent = `${remaining} characters remaining`;
     });
 </script>
-
 </html>
