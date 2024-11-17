@@ -1,33 +1,29 @@
-// routes/rating.js
-const express = require('express');
-const router = express.Router();
-const Rating = require('../models/Rating'); // getting the rating model
 
-// Display the rating form
-router.get('/', (req, res) => {
-    res.render('rating'); // Renders views/rating.ejs
+// routes/ratingRouter.js
+const express = require('express');
+const Rating = require('../models/ratings'); // getting the rating model
+
+const ratingRouter = express.Router(); // Creating the router instance
+
+// Display the rating form (GET /rating -> mapped from server.js)
+ratingRouter.get('/', (req, res) => {
+    res.render('rating_copy'); // Render the rating form from views/rating.ejs
 });
 
-// handling post request to submit the rating
-router.post('/submit-rating', async (req, res) => {
+// Handle rating submission (POST /rating/submit-rating -> mapped from server.js)
+ratingRouter.post('/submit-rating', async (req, res) => {
     const { rating, comment } = req.body;
 
     try {
-        // Create a new rating document
-        const newRating = new Rating({
-            rating,
-            comment
-        });
-
-        // Saving the rating document to the database
+        // Create and save a new Rating document
+        const newRating = new Rating({ rating, comment });
         await newRating.save();
-        
-        res.send('Thank you for your feedback!'); // Confirmation message
+
+        res.send('Thank you for your feedback!'); // Respond with confirmation
     } catch (error) {
-        console.error('Error saving rating:', error); //error message to be displayed in case of error occurs
+        console.error('Error saving rating:', error);
         res.status(500).send('An error occurred. Please try again later.');
     }
 });
 
-
-module.exports = router;
+module.exports = ratingRouter;

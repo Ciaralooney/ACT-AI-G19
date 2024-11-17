@@ -11,25 +11,22 @@ const port = 3000;
 
 // view engine setup
 app.set('view engine', 'ejs'); // specifying the view engine in the express app
+// middleware
+app.use(express.static('public'));
+app.use(express.json());  // using json library 
+app.use(express.urlencoded({ extended: false })); // parses incoming URL-encoded form data 
+//app.use(express.static(path.join(__dirname, 'public')));  // if displaying a file it will be in public folder
 
 // app.use(express.json()); // parsing JSON data
 app.use(express.urlencoded({ extended: true })); // parsing user input
 // logs info about request method, status code, and response time
 //var logger = require('morgan');
 
-app.use(express.static('public'));
 
-// these are found in the roots folder since they handle a url, these are get methods
+//routes
 app.use('/', homeRouter);
 app.use('/accounts', loginRouter);
 app.use('/rating', ratingRouter);
-
-
-app.use(express.static('public'));
-app.use(express.json());  // using json library 
-app.use(express.urlencoded({ extended: false })); // parses incoming URL-encoded form data 
-//app.use(express.static(path.join(__dirname, 'public')));  // if displaying a file it will be in public folder
-
 
 
 // Connect to MongoDB using Mongoose
