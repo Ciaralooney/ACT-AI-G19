@@ -1,9 +1,15 @@
 function ensureAuthenticated(req, res, next) {
-    const publicPaths = ['/', '/accounts/login', '/accounts/register', '/accounts/request-password-reset', '/accounts/reset-password/${token}'];
+    const publicPaths = ['/', '/accounts/login', '/accounts/register', '/accounts/request-password-reset'];
+    // Handle dynamic paths
+    const isPublicPath = publicPaths.includes(req.path) || req.path.startsWith('/accounts/reset-password/');
+
     if (req.session && req.session.userId) {
         return next();
-    } 
-    if (publicPaths.includes(req.path) || req.session?.userId) {
+    }
+
+    console.log(req.path);
+
+    if (isPublicPath || req.session?.userId) {
         return next();
     } else {
         // Store the original URL before redirecting
