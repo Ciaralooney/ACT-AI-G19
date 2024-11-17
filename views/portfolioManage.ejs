@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>
+</head>
+<header>
+    <h1><%= title %></h1>
+</header>
+<nav>        
+    <%- include ('partials/headers'); %>
+</nav>
+<body>
+    <main>
+        <h1>Manage Portfolio: <%= portfolio.clientName %></h1>
+        <form action="/portfolio/<%= portfolio._id %>" method="POST">
+            <label for="clientName">Client Name:</label>
+            <input type="text" id="clientName" name="clientName" value="<%= portfolio.clientName %>" required><br><br>        
+            <label for="clientDescription">Client Description:</label>
+            <textarea id="clientDescription" name="clientDescription" required><%= portfolio.clientDescription %></textarea><br><br>                <label for="fundManagerEmail">Fund Manager Email:</label>
+            <input type="email" id="fundManagerEmail" name="fundManagerEmail" value="<%= portfolio.fundManagerEmail %>" required><br><br>
+            <h3>Select Stock Symbols:</h3>
+            <% stockSymbols.forEach(stock => { %>
+              <label>
+                <input 
+                  type="checkbox" 
+                  name="stockSymbols" 
+                  value="<%= stock.symbol %>" 
+                  <%= portfolio.stockSymbols && portfolio.stockSymbols.some(selectedStock => selectedStock._id.equals(stock._id)) ? 'checked' : '' %>
+                />
+                <%= stock.symbol %>
+              </label><br>
+            <% }) %>
+            
+            <h3>Select Crypto Symbols:</h3>
+            <% cryptoSymbols.forEach(crypto => { %>
+            <label>
+                <input 
+                type="checkbox" 
+                name="cryptoSymbols" 
+                value="<%= crypto.symbol %>" 
+                <%= portfolio.cryptoSymbols && portfolio.cryptoSymbols.some(selectedCrypto => selectedCrypto._id.equals(crypto._id)) ? 'checked' : '' %>
+                />
+                <%= crypto.symbol %>
+            </label><br>
+            <% }) %>
+            
+            <button type="submit">Save Changes</button>
+        </form>
+    </main>
+</body>    
+</html>

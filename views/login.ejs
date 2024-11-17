@@ -3,11 +3,19 @@
     <head>
         <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>
         <script src="/javascripts/scripts.js"></script>
+        
     </head>
     <header>
         <h1><%= title %></h1>
     </header>
+    <nav>
+        <%- include ('partials/headers'); %>
+    </nav>
+    <div id="message"></div>
 <body>
+    <% if (errorMessage) { %>
+        <p class="error-message"><%= errorMessage %></p>
+    <% } %>
     <form action="/accounts/login" method="POST">
         <label>Email:</label><br>
         <input type="email" name="email" required><br><br>
@@ -17,5 +25,7 @@
 
         <button type="submit">Login</button>
     </form>
+    <p><a href="/accounts/request-password-reset">Forgot your password?</a></p>
+
 </body>
 </html>

@@ -1,0 +1,1 @@
+'amzn','goog','googl','meta','tsla','nflx','intc','adbe','crm','orcl','amd','csco','shop'

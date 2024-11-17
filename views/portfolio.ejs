@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>    
+    <title><%= title %></title>
+</head>
+<header>
+    <h1><%= title %></h1>
+    <div style="text-align: right;">
+        <input type="text" id="searchBar" placeholder="Search..." oninput="searchPortfolio()">
+        <a href="/portfolio/new"><button>Create New Portfolio</button></a>
+    </div>
+</header>
+<nav>        
+    <%- include ('partials/headers'); %>
+</nav>
+<body>
+    <main>
+        <!-- Portfolio List -->
+        <ul id="portfolioList" style="max-height: 400px; overflow-y: auto;">
+            <% portfolios.forEach(portfolio => { %>
+                <li>
+                    <span><strong>Client Name:</strong> <a href="/portfolio/<%= portfolio._id %>/clientDetails"><%= portfolio.clientName %></a></span> |
+                    <span><strong>Fund Manager Email:</strong> <%= portfolio.fundManagerEmail %></span>
+                    <button onclick="location.href='/portfolio/<%= portfolio._id %>/manage'">Manage</button>
+                    <button onclick="deletePortfolio('<%= portfolio._id %>')">Delete</button>
+                </li>
+            <% }) %>
+        </ul>
+    </main>
+
+    <script>
+        // Search function
+        function searchPortfolio() {
+            const input = document.getElementById('searchBar').value.toLowerCase();
+            const portfolioList = document.getElementById('portfolioList');
+            Array.from(portfolioList.getElementsByTagName('li')).forEach((item) => {
+                const clientName = item.textContent || item.innerText;
+                item.style.display = clientName.toLowerCase().includes(input) ? "" : "none";
+            });
+        }
+
+        // Delete Portfolio
+        function deletePortfolio(id) {
+            if (confirm('Are you sure you want to delete this portfolio?')) {
+                fetch(`/portfolio/${id}`, {
+                    method: 'DELETE'
+                }).then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        alert('Failed to delete portfolio');
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<section>
+    <h2>Profitability</h2>
+    <p><strong>Profit Margin:</strong> <%= (financial.Profitability["Profit Margin"] * 100).toFixed(2) %>%</p>
+    <p><strong>Operating Margin:</strong> <%= (financial.Profitability["Operating Margin"] * 100).toFixed(2) %>%</p>
+</section>
+
+<!-- Management Effectiveness Section -->
+<section>
+    <h2>Management Effectiveness</h2>
+    <p><strong>Return on Assets:</strong> <%= (financial["Management Effectiveness"]["Return on Assets"] * 100).toFixed(2) %>%</p>
+    <p><strong>Return on Equity:</strong> <%= (financial["Management Effectiveness"]["Return on Equity"] * 100).toFixed(2) %>%</p>
+</section>
+
+<!-- Income Statement Section -->
+<section>
+    <h2>Income Statement</h2>
+    <p><strong>Revenue:</strong> $<%= financial["Income Statement"].Revenue.toLocaleString() %></p>
+    <p><strong>Revenue Per Share:</strong> $<%= financial["Income Statement"]["Revenue Per Share"] %></p>
+    <p><strong>Quarterly Revenue Growth:</strong> <%= (financial["Income Statement"]["Quarterly Revenue Growth"] * 100).toFixed(2) %>%</p>
+    <p><strong>Gross Profit:</strong> <%= financial["Income Statement"]["Gross Profit"] ? "$" + financial["Income Statement"]["Gross Profit"].toLocaleString() : "N/A" %></p>
+    <p><strong>EBITDA:</strong> $<%= financial["Income Statement"].EBITDA.toLocaleString() %></p>
+    <p><strong>Net Income Avi to Common:</strong> $<%= financial["Income Statement"]["Net Income Avi to Common"].toLocaleString() %></p>
+    <p><strong>Diluted EPS:</strong> <%= financial["Income Statement"]["Diluted EPS"] %></p>
+    <p><strong>Quarterly Earnings Growth:</strong> <%= (financial["Income Statement"]["Quarterly Earnings Growth"] * 100).toFixed(2) %>%</p>
+</section>
+
+<!-- Balance Sheet Section -->
+<section>
+    <h2>Balance Sheet</h2>
+    <p><strong>Total Cash:</strong> $<%= financial["Balance Sheet"]["Total Cash"].toLocaleString() %></p>
+    <p><strong>Total Cash Per Share:</strong> <%= financial["Balance Sheet"]["Total Cash Per Share"] ? "$" + financial["Balance Sheet"]["Total Cash Per Share"] : "N/A" %></p>
+    <p><strong>Total Debt:</strong> $<%= financial["Balance Sheet"]["Total Debt"].toLocaleString() %></p>
+    <p><strong>Total Debt/Equity:</strong> <%= financial["Balance Sheet"]["Total Debt/Equity"].toFixed(2) %></p>
+    <p><strong>Current Ratio:</strong> <%= financial["Balance Sheet"]["Current Ratio"].toFixed(2) %></p>
+    <p><strong>Book Value Per Share:</strong> <%= financial["Balance Sheet"]["Book Value Per Share"] %></p>
+</section>
+
+<!-- Cash Flow Statement Section -->
+<section>
+    <h2>Cash Flow Statement</h2>
+    <p><strong>Operating Cash Flow:</strong> $<%= financial["Cash Flow Statement"]["Operating Cash Flow"].toLocaleString() %></p>
+    <p><strong>Levered Free Cash Flow:</strong> $<%= financial["Cash Flow Statement"]["Levered Free Cash Flow"].toLocaleString() %></p>
+</section>
+
+<!-- Trading Information Section -->
+<section>
+    <h2>Trading Information</h2>
+    <p><strong>Beta (5Y Monthly):</strong> <%= financial["Trading Information"]["Beta (5Y Monthly)"] %></p>
+    <p><strong>52 Week High:</strong> $<%= financial["Trading Information"]["52 Week High"] %></p>
+    <p><strong>52 Week Low:</strong> $<%= financial["Trading Information"]["52 Week Low"] %></p>
+    <p><strong>50-Day Moving Average:</strong> $<%= financial["Trading Information"]["50-Day Moving Average"] %></p>
+    <p><strong>200-Day Moving Average:</strong> $<%= financial["Trading Information"]["200-Day Moving Average"] %></p>
+</section>
+
+<!-- Share Statistics Section -->
+<section>
+    <h2>Share Statistics</h2>
+    <p><strong>Avg Vol (3 month):</strong> <%= financial["Share Statistics"]["Avg Vol (3 month)"].toLocaleString() %></p>
+    <p><strong>Avg Vol (10 day):</strong> <%= financial["Share Statistics"]["Avg Vol (10 day)"].toLocaleString() %></p>
+    <p><strong>Shares Outstanding:</strong> <%= financial["Share Statistics"]["Shares Outstanding"].toLocaleString() %></p>
+    <p><strong>Implied Shares Outstanding:</strong> <%= financial["Share Statistics"]["Implied Shares Outstanding"].toLocaleString() %></p>
+    <p><strong>Float:</strong> <%= financial["Share Statistics"]["Float"].toLocaleString() %></p>
+    <p><strong>% Held by Insiders:</strong> <%= (financial["Share Statistics"]["% Held by Insiders"] * 100).toFixed(2) %>%</p>
+    <p><strong>% Held by Institutions:</strong> <%= (financial["Share Statistics"]["% Held by Institutions"] * 100).toFixed(2) %>%</p>
+    <p><strong>Shares Short:</strong> <%= financial["Share Statistics"]["Shares Short"].toLocaleString() %></p>
+    <p><strong>Short Ratio:</strong> <%= financial["Share Statistics"]["Short Ratio"] %></p>
+    <p><strong>Short % of Float:</strong> <%= (financial["Share Statistics"]["Short % of Float"] * 100).toFixed(2) %>%</p>
+    <p><strong>Short % of Shares Outstanding:</strong> <%= (financial["Share Statistics"]["Short % of Shares Outstanding"] * 100).toFixed(2) %>%</p>
+</section>
+
+<!-- Dividends & Splits Section -->
+<section>
+    <h2>Dividends & Splits</h2>
+    <p><strong>Forward Annual Dividend Rate:</strong> <%= financial["Dividends & Splits"]["Forward Annual Dividend Rate"] %></p>
+    <p><strong>Forward Annual Dividend Yield:</strong> <%= (financial["Dividends & Splits"]["Forward Annual Dividend Yield"] * 100).toFixed(2) %>%</p>
+    <p><strong>Trailing Annual Dividend Rate:</strong> <%= financial["Dividends & Splits"]["Trailing Annual Dividend Rate"] %></p>
+    <p><strong>Trailing Annual Dividend Yield:</strong> <%= (financial["Dividends & Splits"]["Trailing Annual Dividend Yield"] * 100).toFixed(2) %>%</p>
+    <p><strong>5 Year Average Dividend Yield:</strong> <%= financial["Dividends & Splits"]["5 Year Average Dividend Yield"] %></p>
+    <p><strong>Payout Ratio:</strong> <%= (financial["Dividends & Splits"]["Payout Ratio"] * 100).toFixed(2) %>%</p>
+    <p><strong>Dividend Date:</strong> <%= financial["Dividends & Splits"]["Dividend Date"] ? new Date(financial["Dividends & Splits"]["Dividend Date"] * 1000).toLocaleDateString() : "N/A" %></p>
+    <p><strong>Ex-Dividend Date:</strong> <%= new Date(financial["Dividends & Splits"]["Ex-Dividend Date"] * 1000).toLocaleDateString() %></p>
+    <p><strong>Last Split Factor:</strong> <%= financial["Dividends & Splits"]["Last Split Factor"] %></p>
+    <p><strong>Last Split Date:</strong> <%= new Date(financial["Dividends & Splits"]["Last Split Date"] * 1000).toLocaleDateString() %></p>
+</section>
