@@ -1,5 +1,5 @@
 function ensureAuthenticated(req, res, next) {
-    const publicPaths = ['/', '/accounts/login', '/accounts/register', '/accounts/request-password-reset'];
+    const publicPaths = ['/', '/accounts/login', '/accounts/register', '/accounts/request-password-reset', '/accounts/reset-password/${token}'];
     if (req.session && req.session.userId) {
         return next();
     } 
