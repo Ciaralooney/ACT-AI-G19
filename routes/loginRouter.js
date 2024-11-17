@@ -24,7 +24,11 @@ loginRouter.route('/login')
             }
 
             req.session.userId = user._id;
-            res.redirect('/user/profile');
+            req.session.username = user.username;
+            req.session.userEmail = user.email;
+            const redirectTo = req.session.returnTo || '/user/profile';
+            delete req.session.returnTo;
+            res.redirect(redirectTo);
             console.log("User logged in with ID:", req.session.userId);
 
         } catch (err) {

@@ -2,9 +2,9 @@ const express = require("express");
 const session = require("express-session");
 const flash = require("connect-flash");
 const mongoose = require("mongoose");
-
 const app = express();
 const port = process.env.PORT || 3000;
+const ensureAuthenticated = require("./public/javascripts/authMiddleware")
 
 require('dotenv').config();
 app.use(session({
@@ -14,7 +14,7 @@ app.use(session({
   cookie: { secure: false , httpOnly: true, maxAge: 1000 * 60 * 60 * 24 }
   }));
 
-  app.use(flash());
+app.use(flash());
 
 // View engine setup
 app.set("view engine", "ejs");
@@ -38,15 +38,16 @@ app.use((req, res, next) => {
   next();
 });
 // these are found in the roots folder since they handle a url, these are get methods
+app.use(ensureAuthenticated);
 app.use('/', homeRouter);
 app.use('/accounts', loginRouter);
-app.use('/', portfolioRouter)
+app.use('/', ensureAuthenticated, portfolioRouter)
 app.use('/Logout', logoutRouter)
-app.use("/stocks", stockRouter);
-app.use("/crypto", cryptoRouter);
+app.use("/stocks", ensureAuthenticated, stockRouter);
+app.use("/crypto", ensureAuthenticated, cryptoRouter);
 app.use("/accounts", signupRouter);
 app.use("/accounts", passwordResetRouter);
-app.use("/user", profileRouter);
+app.use("/user", ensureAuthenticated, profileRouter);
 
 // Connect to MongoDB
 mongoose

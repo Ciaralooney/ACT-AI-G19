@@ -1,16 +1,17 @@
-<html>
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Stock Tracker</title>
-            <link rel="stylesheet" type='text/css'href="/stylesheets/stylesheets.css">
-        </head>
-        <body>
-            <nav>
-                <%- include ('partials/headers'); %>
-            </nav>
-            <div class="wrapper">
-                <h1>List of Crypto (Data within 1 minute) </h1>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Stock Tracker</title>
+        <link rel="stylesheet" type='text/css'href="/stylesheets/stylesheets.css">
+    </head>
+    <body>
+        <nav>
+            <%- include ('partials/headers'); %>
+        </nav>
+        <div class="wrapper">
+            <h1>List of Crypto (Data within 1 minute) </h1>
             <table class="table table-inverse">
                 <thead>
                     <tr>
@@ -25,7 +26,7 @@
                 </thead>
                 <tbody>
                     <% for(let crypto in stockList){ %>
-                        <tr>
+                    <tr>
                         <td><a href='/crypto/detail/<%= crypto.toUpperCase()%>'><%= crypto.toUpperCase() %></a></td>
                         <td><%= stockList[crypto]['Adj Close'].toFixed(3) %></td>
                         <td class="close"><%= stockList[crypto].Close.toFixed(3) %></td>
@@ -34,10 +35,10 @@
                         <td class="open"><%= stockList[crypto].Open.toFixed(3) %></td>
                         <td class="volume"><%= stockList[crypto].Volume %></td>
                     </tr>
-                        <%} %>
+                    <%} %>
                 </tbody>
             </table>
             <a href='/stocks' class = 'return'><h4>View Tech Stocks</h4></a>
-            </div>
-        </body>
+        </div>
+    </body>
 </html>

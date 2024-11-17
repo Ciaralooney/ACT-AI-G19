@@ -14,14 +14,16 @@ const clientPortfolioSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  stockSymbols: {
-    type: [String], // Array of stock symbols (e.g., ["AAPL", "GOOGL"])
-    default: [],
-  },
-  cryptoSymbols: {
-    type: [String], // Array of crypto symbols (e.g., ["BTC", "ETH"])
-    default: [],
-  },
+  stockSymbols: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'stocksymbol',
+    required: false,
+  }],
+  cryptoSymbols: [{
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'cryptosymbol',
+    required: false,
+  }],
 });
 
 // Model

@@ -4,44 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Portfolio</title>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>
-    <script src="/javascripts/scripts.js"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>    
 </head>
 <header>
-    <nav>
-        <%- include ('partials/headers'); %>
-    </nav>
-</header>
-<body>
-    <h1>Client Details: <%= portfolio.clientName %></h1>    
-    <div style="text-align: right;">
-        <button onclick="location.href='/portfolio/<%= portfolio._id %>/manage'">Manage</button>
-    </div>
-    <br>
-        <label for="clientName"><b>Client Name:</b> <%= portfolio.clientName %><br></label>
+    <h1>Portfolio of <%= title %></h1>
+  </header>
+<nav>
+    <%- include ('partials/headers'); %>
+  </nav>
+<body> 
+    <main>
+        <div style="text-align: right;">
+            <button onclick="location.href='/portfolio/<%= portfolio._id %>/manage'">Manage</button>
+        </div>
+        <br>
+            <label for="clientName"><b>Client Name:</b> <%= portfolio.clientName %><br></label>
+            <label for="clientDescription"><b>Client Description:</b> <%= portfolio.clientDescription %><br></label>
+            <label for="fundManagerEmail"><b>Fund Manager Email:</b> <%= portfolio.fundManagerEmail %><br></label>
 
-        <label for="clientDescription"><b>Client Description:</b> <%= portfolio.clientDescription %><br></label>
-
-        <label for="fundManagerEmail"><b>Fund Manager Email:</b> <%= portfolio.fundManagerEmail %><br></label>
-        
-
-        <h3>Stock Symbols:</h3>
-        <% stockSymbols.forEach(symbol => { %>
-            <span>
-                <%- portfolio.stockSymbols.includes(symbol) ? '&#9745;' : '&#9744;' %> 
-                <%= symbol %>
-            </span>
-            <br>
-        <% }) %>
-        
-
-        <h3>Crypto Symbols:</h3>
-        <% cryptoSymbols.forEach(symbol => { %>
-            <span>
-                <%- portfolio.cryptoSymbols.includes(symbol) ? '&#9745;' : '&#9744;' %>
-                <%= symbol %>
-            </span>
-            <br>
-        <% }) %>
+            <h3>Select Stock Symbols:</h3>
+            <% stockSymbols.forEach(stock => { %>
+                <label>
+                    <input 
+                        type="checkbox" 
+                        name="stockSymbols" 
+                        value="<%= stock.symbol %>" 
+                        <%= portfolio.stockSymbols && portfolio.stockSymbols.some(selectedStock => selectedStock._id.equals(stock._id)) ? 'checked' : '' %>
+                        disabled
+                    />
+                    <%= stock.symbol %>
+                </label><br>
+            <% }) %>
+                    
+            <h3>Select Crypto Symbols:</h3>
+            <% cryptoSymbols.forEach(crypto => { %>
+                <label>
+                    <input 
+                        type="checkbox" 
+                        name="cryptoSymbols" 
+                        value="<%= crypto.symbol %>" 
+                        <%= portfolio.cryptoSymbols && portfolio.cryptoSymbols.some(selectedCrypto => selectedCrypto._id.equals(crypto._id)) ? 'checked' : '' %>
+                        disabled
+                    />
+                    <%= crypto.symbol %>
+                </label><br>
+            <% }) %>
+    </main> 
 </body>
 </html>

@@ -1,17 +1,18 @@
-<html>
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>StockList</title>
-            <link rel="stylesheet" type='text/css'href="/stylesheets/stylesheets.css">
-        </head>
-        <body>
-            <nav>
-                <%- include ('partials/headers'); %>
-            </nav>
-            <script src="/scripts/allStocks.js"></script>
-            <div class="wrapper">
-                <h1>List of Stocks (Data within 1 minute) </h1>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>StockList</title>
+        <link rel="stylesheet" type='text/css'href="/stylesheets/stylesheets.css">
+    </head>
+    <body>
+        <nav>
+            <%- include ('partials/headers'); %>
+        </nav>
+        <script src="/scripts/allStocks.js"></script>
+        <div class="wrapper">
+            <h1>List of Stocks (Data within 1 minute) </h1>
             <table class="table table-inverse">
                 <thead>
                     <tr>
@@ -37,6 +38,6 @@
                 </tbody>
             </table>
             <a href='/crypto' class = 'return'><h4>View Crypto</h4></a>
-            </div>
-        </body>
+        </div>
+    </body>
 </html>
