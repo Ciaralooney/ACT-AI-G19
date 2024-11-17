@@ -8,7 +8,7 @@ const router = express.Router();
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Request Password Reset
-router.get('/request-password-reset', (req, res) => {
+router.get('/request-password-reset', async (req, res) => {
     res.render('passwordResetRequest', { title: 'Request Password Reset', errorMessage: null, successMessage: null });
 });
 

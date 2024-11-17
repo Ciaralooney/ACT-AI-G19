@@ -1,5 +1,5 @@
 function ensureAuthenticated(req, res, next) {
-    const publicPaths = ['/', '/accounts/login', '/accounts/register'];
+    const publicPaths = ['/', '/accounts/login', '/accounts/register', '/accounts/request-password-reset'];
     if (req.session && req.session.userId) {
         return next();
     } 
@@ -11,6 +11,5 @@ function ensureAuthenticated(req, res, next) {
         res.redirect('/accounts/login');
     }
 }
-
 
 module.exports = ensureAuthenticated;
