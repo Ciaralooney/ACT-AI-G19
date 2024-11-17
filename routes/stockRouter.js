@@ -8,9 +8,9 @@ const flaskDomain = "https://yfianance-api-904c5fa45cd2.herokuapp.com";
 router.get('/',async (req,res)=>{
     var listDBSymbols = await stock.find({},'symbol -_id');
     const symbolArray = listDBSymbols.map(doc => doc.symbol);
-    console.log(symbolArray);
-    var listSymbols = ['aapl','msft','amzn','goog','googl','meta','nvda','tsla','nflx','intc','adbe','crm','orcl','amd','csco','shop']
-    console.log(listSymbols)
+    // console.log(symbolArray);
+    // var listSymbols = ['aapl','msft','amzn','goog','googl','meta','nvda','tsla','nflx','intc','adbe','crm','orcl','amd','csco','shop']
+    // console.log(listSymbols)
     // var pm = JSON.stringify(listSymbols)
     try {
         const response = await axios.post(`${flaskDomain}/get_stock_data`, 
