@@ -28,7 +28,7 @@ router.post('/request-password-reset', async (req, res) => {
         user.resetTokenExpiration = Date.now() + 3600000; // 1 hour
         await user.save();
 
-        const resetURL = `http://127.0.0.1:3000/accounts/reset-password/${token}`; 
+        const resetURL = `https://act-webclient-3ca7b6bb1aef.herokuapp.com/accounts/reset-password/${token}`; 
         const msg = {
             to: email,
             from: 'AgenticCorporateTrader@gmail.com',
