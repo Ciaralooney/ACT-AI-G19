@@ -22,11 +22,22 @@
             <div class="comment-section">
                 <!--Comment text field-->
                 <label for="comment">Comments:</label><br>
-                <textarea id="comment" name="comment" rows="4" cols="50" placeholder="Please leave your feedback here..."></textarea>
+                <textarea id="comment" name="comment" rows="4" cols="50" placeholder="Please leave your feedback here..." maxlength="300"></textarea>
+                <div id="char-count">300 characters remaining</div>
             </div>
             <!--submission button-->
             <button type="submit">Submit</button>
         </form>
     </div>
 </body>
+<script>
+    const commentInput = document.getElementById('comment');
+    const charCountDisplay = document.getElementById('char-count');
+
+    commentInput.addEventListener('input', () => {
+        const remaining = 300 - commentInput.value.length;
+        charCountDisplay.textContent = `${remaining} characters remaining`;
+    });
+</script>
+
 </html>
