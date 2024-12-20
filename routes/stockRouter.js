@@ -8,8 +8,9 @@ router.get('/search', (req,res)=>{
 })
 
 router.get('/',async (req,res)=>{
-    var listSymbols = ['aapl','msft','amzn','goog','googl','meta','nvda','tsla','nflx','intc','adbe','crm','orcl','amd','csco','shop']
-    // var pm = JSON.stringify(listSymbols)
+    var listDBSymbols = await stock.find({},'symbol -_id');
+    const symbolArray = listDBSymbols.map(doc => doc.symbol);
+    
     try {
         const response = await axios.post("http://localhost:5000/get_stock_data", 
             {array: {listSymbols}},
@@ -21,6 +22,7 @@ router.get('/',async (req,res)=>{
         res.status(500);
     }
 })
+
 //Gets a detailed page of the selected stock
 router.get('/detail/:symbol', async(req, res)=>{
     const symbol = req.params.symbol
@@ -36,18 +38,6 @@ router.get('/detail/:symbol', async(req, res)=>{
         res.status(500).send('Error fetching graph data');
     }
 })
-router.get('/search/:symbol', async (req, res) => {
-    const symbol = req.params.symbol;
-    try {
-        const response = await axios.get(`http://localhost:5000/api/stocks`, {
-            params: { symbol }
-        });
-        console.log(response.data);
-        res.json(response.data);
-    } catch (error) {
-        res.status(500).json({ error: 'Error fetching stock data' });
-    }
-});
 
 
 module.exports = router;
