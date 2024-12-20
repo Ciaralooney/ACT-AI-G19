@@ -2,7 +2,7 @@ const express = require("express");
 const axios = require("axios");
 
 const route = express.Router();
-const domain = "http://127.0.0.1:5000"
+const domain = process.env.AI_ENGINE_API
 
 route.post("/crypto/:symbol", async(req,res)=>{
     var symbol = req.params.symbol;
@@ -12,9 +12,10 @@ route.post("/crypto/:symbol", async(req,res)=>{
                 "ticker_symbol" : symbol
             }
         )
-        const ticker = response.ticker_symbol
-        const result = response.analysis
-        res.json({ticker, result})
+        const ticker = response.data.ticker_symbol
+        const result = response.data.analysis
+        console.log(response)
+        res.render("../views/cryptoReccomendation", { ticker, result });
     }catch(error){
 
     }
@@ -27,9 +28,10 @@ route.post("/stock/:symbol", async(req,res)=>{
                 "ticker_symbol" : symbol
             }
         )
-        const ticker = response.ticker_symbol
-        const result = response.analysis
-        res.json({ticker, result})
+        const ticker = response.data.ticker_symbol
+        const result = response.data.analysis
+        console.log(response)
+        res.render("../views/stockReccomendation", { ticker, result });
     }catch(error){
 
     }

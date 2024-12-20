@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Analysis for <%= ticker %></title>
+    <link rel="stylesheet" href="/stylesheets/AiStyles.css"> <!-- Adjust path to your CSS -->
+</head>
+<body>
+    <nav>
+        <%- include('partials/headers'); %> <!-- Include your navigation partial if needed -->
+    </nav>
+    <div class="wrapper">
+        <h1>Stock Analysis for <%= ticker %></h1>
+        <div class="analysis">
+            <h2>Analysis Results</h2>
+            <p><%= result %></p> <!-- Output the analysis result -->
+        </div>
+        <div class="actions">
+            <a href="/stocks" class="btn">Back to Stocks</a>
+        </div>
+    </div>
+    <footer>
+    </footer>
+</body>
+</html>

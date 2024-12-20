@@ -14,6 +14,9 @@
             <div class = 'stockGraph'>
                 <%- graphHtml %>
             </div>
+            <form action="/AI/crypto/<%= symbol%>" method="POST">
+                <button type="submit">AI insights</button>
+            </form>
             <div class="stockInfo">
                 <p>Company Name: <%= symbol%></p>
                 <p>Adj. Close: <%= stockInfo['Adj Close'] %></p>
