@@ -24,7 +24,7 @@ router.get('/',async(req,res)=>{
 router.get('/detail/:symbol', async(req,res)=>{
     var symbol = req.params.symbol
     try{
-        const response = await axios.post(`${flaskDomain}/api/stockGraph`,{
+        const response = await axios.post(`${flaskDomain}/api/cryptoGraph`,{
             params: {symbol}
         });
         const graphHtml = response.data.graph_html;
