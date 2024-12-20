@@ -1,36 +1,42 @@
-<div class="wrapper">
-    <html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>
-    </head>
-    <header>
-        <h1><%= title %></h1>
-    </header>
-    <nav>
-        <%- include ('partials/headers'); %>
-    </nav>
-        <main>
-<body>
-    <p>Hello Guest. Please login or signup via the navigation</p>
-
-
-    <div class="row">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>
+    <title><%= title %></title>
+  </head>
+  <header>
+    <h1><%= title %></h1>
+  </header>
+  <nav>
+    <%- include ('partials/headers'); %>
+  </nav>
+  <body>
+    <main>
+      <% if (!session.username) { %> 
+      <p>Hello Guest. Please login or signup via the navigation</p>
+      <% } else { %> <!-- User is logged in -->   
+        <p>Hello, <%= session.username %>!</p>
+      <% } %>      
+      <div class="row">
         <div class="image-cols">
           <!-- Image Source: pngwing.com -->
           <img src="/images/image1.png" height="150" width="100">
           <p>Buy Stocks and Crypto</p>
         </div>
-        <a href ='/stocks'><div class="image-cols">
-          <!-- Image Source: pngwing.com -->
-          <img src="/images/image2.png" height="150" width="100">
-          <p>Manage Assets</p>
-        </div></a>
+        <a href ='/stocks'>
+          <div class="image-cols">
+            <!-- Image Source: pngwing.com -->
+            <img src="/images/image2.png" height="150" width="100">            <p>Manage Assets</p>
+          </div>
+        </a>
         <div class="image-cols">
           <!-- Image Source: pngwing.com -->
           <img src="images/image3.png" height="150" width="100">
           <p>Invest Money</p>
         </div>
-    </div>
-</body>
-</main>
+      </div>
+    </main>
+  </body>
 </html>

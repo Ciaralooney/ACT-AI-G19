@@ -1,19 +1,17 @@
 const express = require('express');
-const axios = require('axios')
+const axios = require('axios');
+const stock = require('../models/stocks');
 
-var router = express.Router();
-
-router.get('/search', (req,res)=>{
-    res.render('../views/stockSearch')
-})
+const router = express.Router();
+const flaskDomain = "https://yfianance-api-904c5fa45cd2.herokuapp.com";
 
 router.get('/',async (req,res)=>{
     var listDBSymbols = await stock.find({},'symbol -_id');
     const symbolArray = listDBSymbols.map(doc => doc.symbol);
     
     try {
-        const response = await axios.post("http://localhost:5000/get_stock_data", 
-            {array: {listSymbols}},
+        const response = await axios.post(`${flaskDomain}/get_stock_data`, 
+            {array: symbolArray},
             { headers: { 'Content-Type': 'application/json' }}
         )
         stockData = response.data;
@@ -27,12 +25,19 @@ router.get('/',async (req,res)=>{
 router.get('/detail/:symbol', async(req, res)=>{
     const symbol = req.params.symbol
     try{
-        const response = await axios.post('http://localhost:5000/api/stockGraph',{
+        const response = await axios.post(`${flaskDomain}/api/stockGraph`,{
             params: {symbol}
         });
         const graphHtml = response.data.graph_html;
         const stockInfo = response.data.stockData;
-        res.render('../views/stockView',{graphHtml:graphHtml,symbol : symbol, stockInfo:stockInfo})
+        const financial = response.data.financial;
+        res.render('../views/stockView',
+            {
+                graphHtml:graphHtml,
+                symbol : symbol, 
+                stockInfo:stockInfo, 
+                financial:financial
+            })
     }catch(error){
         console.error('Error fetching graph HTML:', error);
         res.status(500).send('Error fetching graph data');

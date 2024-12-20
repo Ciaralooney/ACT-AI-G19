@@ -1,13 +1,16 @@
 const express = require('express');
-const axios = require('axios')
+const axios = require('axios');
+const crypto = require('../models/crypto');
 
-var router = express.Router();
-
+const router = express.Router();
+const flaskDomain = "https://yfianance-api-904c5fa45cd2.herokuapp.com";
 router.get('/',async(req,res)=>{
-    var listSymbols = ["BTC-USD","ETH-USD","BNB-USD","XRP-USD","ADA-USD","SOL-USD", "DOGE-USD", "MATIC-USD", "DOT-USD","LTC-USD", "SHIB-USD","AVAX-USD"];
+    var listDBSymbols = await crypto.find({},'symbol -_id');
+    const symbolArray = listDBSymbols.map(doc => doc.symbol);
+    // var listSymbols = ["BTC-USD","ETH-USD","BNB-USD","XRP-USD","ADA-USD","SOL-USD", "DOGE-USD", "MATIC-USD", "DOT-USD","LTC-USD", "SHIB-USD","AVAX-USD"];
     try {
-        const response = await axios.post("http://localhost:5000/get_crypto_data", 
-            { array: { listSymbols } },
+        const response = await axios.post(`${flaskDomain}/get_crypto_data`, 
+            { array: symbolArray },
             { headers: { 'Content-Type': 'application/json' }}
         );
         const stockData = response.data;

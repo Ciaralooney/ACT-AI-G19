@@ -3,30 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>
-    <script src="/javascripts/scripts.js"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>    
     <title><%= title %></title>
 </head>
 <header>
-    <nav>
-        <!-- When the navigation button is clicked the submenu shows -->
-        <button id="nav" onclick="show()">Navigation menu</button>
-        <div class="hide" id="expandingMenu" >
-            <a class="subMenu thumb-pr mn" href="/">Home</a> 
-            <a class="subMenu thumb-pr mn" href="/portfolio">Portfolio List</a>
-            <a class="subMenu thumb-pr mn" href="/accounts/login">Login</a>
-        </div>
-    </nav>
+    <h1><%= title %></h1>
+    <div style="text-align: right;">
+        <input type="text" id="searchBar" placeholder="Search..." oninput="searchPortfolio()">
+        <a href="/portfolio/new"><button>Create New Portfolio</button></a>
+    </div>
 </header>
+<nav>        
+    <%- include ('partials/headers'); %>
+</nav>
 <body>
-    <header>
-        <h1><%= title %></h1>
-        <div style="text-align: right;">
-            <input type="text" id="searchBar" placeholder="Search..." oninput="searchPortfolio()">
-            <a href="/portfolio/new"><button>Create New Portfolio</button></a>
-        </div>
-    </header>
-
     <main>
         <!-- Portfolio List -->
         <ul id="portfolioList" style="max-height: 400px; overflow-y: auto;">

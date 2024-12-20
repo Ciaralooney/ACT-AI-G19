@@ -1,1 +1,1 @@
-'aapl','msft','amzn','goog','googl','meta','nvda','tsla','nflx','intc','adbe','crm','orcl','amd','csco','shop'
+'amzn','goog','googl','meta','tsla','nflx','intc','adbe','crm','orcl','amd','csco','shop'

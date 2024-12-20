@@ -6,6 +6,9 @@
         <link rel="stylesheet" type='text/css'href="/stylesheets/stylesheets.css">
     </head>
     <body>
+        <nav>
+            <%- include ('partials/headers'); %>
+        </nav>
         <div class ='wrapper'>
             <h1>Daily Graph of <%= symbol%></h1>
             <div class = 'stockGraph'>
@@ -23,6 +26,11 @@
                 <p>Open: <%= stockInfo['Open'] %></p>
                 <p>Volume: <%= stockInfo['Volume'] %></p>
                 <!-- Display more stock info as needed -->
+                <section>
+                    <h2>Company Description</h2>
+                    <p><%= financial.Description %></p>
+                </section>    
+                <%- include ('partials/financials'); %>
             </div>
             <a href='/stocks' class = 'return'><h4>Back to Stocks</h4></a>
         </div>

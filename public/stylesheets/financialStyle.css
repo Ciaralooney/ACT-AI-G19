@@ -1,0 +1,79 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+h1, h2 {
+    font-family: 'Helvetica', sans-serif;
+    color: #0056b3;
+}
+
+h2 {
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+/* Section Styling */
+section {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px auto;
+    max-width: 800px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    margin-top: 0;
+}
+
+section p {
+    margin: 8px 0;
+}
+
+section p strong {
+    color: #0056b3;
+}
+
+/* Highlight important numbers */
+section p span {
+    font-weight: bold;
+    color: #28a745;
+}
+
+/* Table-Like Alignment for Labels and Values */
+section p {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    background: #f9f9f9;
+    border-bottom: 1px solid #eee;
+    border-radius: 4px;
+}
+
+/* Remove Border for the Last Item */
+section p:last-child {
+    border-bottom: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    section {
+        padding: 15px;
+    }
+
+    section p {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    section p strong {
+        margin-bottom: 5px;
+    }
+}
