@@ -32,6 +32,8 @@ const stockRouter = require("./routes/stockRouter");
 const passwordResetRouter = require("./routes/passwordResetRouter");
 const profileRouter = require("./routes/profileRouter");
 const portfolioRouter = require('./routes/portfolioRouter')
+const ratingRouter = require('./routes/ratingRouter'); // Import the router file
+const aiRouter = require('./routes/aiRouter')
 
 // these are found in the roots folder since they handle a url, these are get methods
 app.use('/', homeRouter);
@@ -41,7 +43,9 @@ app.use("/stocks", stockRouter);
 app.use("/crypto", cryptoRouter);
 app.use("/accounts", signupRouter);
 app.use("/accounts", passwordResetRouter);
-app.use("/user", profileRouter);
+app.use("/user", ensureAuthenticated, profileRouter);
+app.use('/rating', ratingRouter);
+app.use("/AI",aiRouter)
 
 // Connect to MongoDB
 mongoose
