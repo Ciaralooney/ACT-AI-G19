@@ -158,6 +158,65 @@ form, .container {
     animation: fadeIn 1s ease-in;
 }
 
+details {
+    background-color: #ffffff;
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 600px;
+    padding: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+details summary::-webkit-details-marker {
+    display: none;
+}
+
+details:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+details summary {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #2e8b8b;
+    cursor: pointer;
+    outline: none;
+    transition: color 0.3s ease;
+}
+
+details summary:hover {
+    color: #184d47;
+}
+
+details h3 {
+    margin: 0;
+    font-size: 1.6rem;
+    color: #184d47;
+}
+
+details ul {
+    list-style-type: none;
+    padding: 10px 0 0 0;
+    margin: 10px 0 0 0;
+    color: #4e5d6c;
+}
+
+details li {
+    font-size: 1rem;
+    padding: 8px;
+    background-color: #f6f7f9;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    transition: background-color 0.3s ease;
+}
+
+details li:hover {
+    background-color: #eaf4f3;
+}
+
 form label {
     font-size: 1.1rem;
     color: #333;
