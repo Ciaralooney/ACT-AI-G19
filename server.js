@@ -22,6 +22,8 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+const adminRouter = require('./routes/adminRouter');
+const deleteAccountRouter = require("./routes/deleteAccountRouter");
 const homeRouter = require("./routes/homeRouter");
 const loginRouter = require("./routes/loginRouter")
 const userRouter = require("./routes/userRouter");
@@ -52,6 +54,8 @@ app.use("/accounts", passwordResetRouter);
 app.use("/user", ensureAuthenticated, profileRouter);
 app.use('/rating', ratingRouter);
 app.use("/AI",aiRouter)
+app.use("/accounts", deleteAccountRouter);
+app.use('/admin', adminRouter);
 
 // Connect to MongoDB
 mongoose
