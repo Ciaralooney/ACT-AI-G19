@@ -13,7 +13,10 @@ signupRouter.route('/register')
         const { username, email, password } = req.body;
 
         try {
-            let user = await User.findOne({ email });
+            let user = await User.findOne({
+                $or: [{ username }, { email }]
+            });
+            
             if (user) return res.render('register', { title: 'Register', errorMessage: 'User already exists' });
 
             const salt = await bcrypt.genSalt(12);
