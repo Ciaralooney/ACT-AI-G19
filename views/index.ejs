@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">   
     <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
     <title><%= title %></title>
   </head>
   <header>
@@ -18,7 +19,6 @@
       <p>Hello Guest. Please login or signup via the navigation</p>
       <% } else { %> <!-- User is logged in -->   
         <p>Hello, <%= session.username %>!</p>
-      <% } %>      
       <div class="row">
         <div class="image-cols">
           <!-- Image Source: pngwing.com -->
@@ -37,6 +37,7 @@
           <p>Invest Money</p>
         </div>
       </div>
+      <% } %> 
     </main>
   </body>
 </html>

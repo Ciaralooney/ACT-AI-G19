@@ -28,13 +28,33 @@ router.post('/request-password-reset', async (req, res) => {
         user.resetTokenExpiration = Date.now() + 3600000; // 1 hour
         await user.save();
 
-        const resetURL = `https://act-webclient-3ca7b6bb1aef.herokuapp.com/accounts/reset-password/${token}`; 
+        const resetURL = `https://act-ai-g19.onrender.com/accounts/reset-password/${token}`; 
         const msg = {
             to: email,
             from: 'AgenticCorporateTrader@gmail.com',
             subject: 'ACT-AI Password Reset',
-            html: `<p>You have requested a password reset. 
-                   Click <a href="${resetURL}">here</a> to reset your password.</p>`
+            html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; background-color: #f9f9f9;">
+                <h2 style="text-align: center; color: #333;">ACT-AI Password Reset</h2>
+                <p style="font-size: 16px; color: #555;">
+                    Hello, ${email}
+                </p>
+                <p style="font-size: 16px; color: #555;">
+                    You have requested to reset your password. Click the button below to proceed:
+                </p>
+                <div style="text-align: center; margin: 20px 0;">
+                    <a href="${resetURL}" style="background-color: #007BFF; color: #ffffff; text-decoration: none; padding: 10px 20px; border-radius: 5px; font-size: 16px; display: inline-block;">
+                        Reset Your Password
+                    </a>
+                </div>
+                <p style="font-size: 14px; color: #777;">
+                    If you did not request this change, you can safely ignore this email.
+                </p>
+                <p style="font-size: 14px; color: #777;">
+                    Thank you,<br>ACT-AI Team
+                </p>
+            </div>
+            `
         };
 
         await sgMail.send(msg);
