@@ -24,11 +24,18 @@ loginRouter.route('/login')
             }
 
             req.session.userId = user._id;
+            req.session.userRole = user.role;
             req.session.username = user.username;
             req.session.userEmail = user.email;
-            const redirectTo = req.session.returnTo || '/user/profile';
+			if (user.role === 'admin') {
+                return res.redirect('/admin/profile');
+            } else {
+                return res.redirect('/user/profile');
+            }   
+
+            //res.redirect(redirectTo);
+			
             delete req.session.returnTo;
-            res.redirect(redirectTo);
             console.log("User logged in with ID:", req.session.userId);
 
         } catch (err) {
