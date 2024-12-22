@@ -17,8 +17,22 @@
                     <p><strong>Username:</strong> <%= username %></p>
                     <p><strong>Email:</strong> <%= email %></p>
                 </div>
-    
-                <p><a href="/accounts/request-password-reset">Reset your password</a></p>
+				<p>Username: <%= username %><br>
+				Email: <%= email %></p>
+
+        <form id="updateForm" action="/user/profile" method="POST" class="hidden">
+          <label for="username">Update Username:</label>
+          <input type="text" id="username" name="username" value="<%= username %>" />
+
+          <label for="email">Update Email:</label>
+          <input type="email" id="email" name="email" value="<%= email %>" />
+
+          <button type="submit">Save Changes</button>
+        </form>
+
+        <p><a href="/accounts/request-password-reset" class="reset-password">Reset your password</a>
+          <br> <a href="/accounts/delete-request">Request Account Deletion</a>
+        </p>
             </section>
         </main>
     </body>
