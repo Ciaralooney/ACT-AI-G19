@@ -27,13 +27,16 @@ loginRouter.route('/login')
             req.session.userRole = user.role;
             req.session.username = user.username;
             req.session.userEmail = user.email;
-			if (user.role === 'admin') {
-                return res.redirect('/admin/profile');
-            } else {
-                return res.redirect('/user/profile');
-            }   
 
-            //res.redirect(redirectTo);
+            let redirectTo = String;
+
+			if (user.role === "admin") {
+                redirectTo = '/admin/profile';
+            } else {
+                redirectTo = "/user/profile";
+            }
+            
+            res.redirect(redirectTo);
 			
             delete req.session.returnTo;
             console.log("User logged in with ID:", req.session.userId);
@@ -43,5 +46,5 @@ loginRouter.route('/login')
             res.status(500).render('login', { title: 'Login', errorMessage: 'Server error' });
         }
     });
-
+    
 module.exports = loginRouter;
