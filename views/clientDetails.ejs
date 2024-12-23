@@ -16,6 +16,9 @@
   </nav>
 <body> 
     <main>
+        <div style="text-align: left;">
+            <button onclick="location.href='/portfolio'">Go back to list</button>
+        </div>
         <div style="text-align: right;">
             <button onclick="location.href='/portfolio/<%= portfolio._id %>/trade/stock'">Trade</button>
             <button onclick="location.href='/portfolio/<%= portfolio._id %>/manage'">Manage</button>
@@ -24,20 +27,28 @@
             <label for="clientName"><b>Client Name:</b> <%= portfolio.clientName %><br></label>
             <label for="clientDescription"><b>Client Description:</b> <%= portfolio.clientDescription %><br></label>
             <label for="fundManagerEmail"><b>Fund Manager Email:</b> <%= portfolio.fundManagerEmail %><br></label>
+            <br>
+            <h2>Stock Symbols in Portfolio:</h2>
+            <% if (portfolio.stockSymbols.length > 0) { %> 
+                <% portfolio.stockSymbols.forEach(stock => { %>
+                    <label>
+                        <%= stock.symbol.symbol %>
+                    </label><br>
+                <% }) %>
+            <% } else { %>
+                <h3>No Stocks Owned</h3>
+            <% } %>
 
-            <h3>Stock Symbols in Portfolio:</h3>
-            <% portfolio.stockSymbols.forEach(stock => { %>
-                <label>
-                    <%= stock.symbol.symbol %>
-                </label><br>
-            <% }) %>
-                    
-            <h3>Crypto Symbols in Portfolio:</h3>
-            <% portfolio.cryptoSymbols.forEach(crypto => { %>
-                <label>
-                    <%= crypto.symbol.symbol  %>
-                </label><br>
-            <% }) %>
+            <h2>Crypto Symbols in Portfolio:</h2>
+            <% if (portfolio.cryptoSymbols.length > 0) { %> 
+                <% portfolio.cryptoSymbols.forEach(crypto => { %>
+                    <label>
+                        <%= crypto.symbol.symbol  %>
+                    </label><br>
+                <% }) %>
+            <% } else { %>
+                <h3>No Crypto Owned</h3>
+            <% } %>
     </main> 
 </body>
 </html>
