@@ -20,11 +20,13 @@
       <% } else { %> <!-- User is logged in -->   
         <p>Hello, <%= session.username %>!</p>
       <div class="row">
-        <div class="image-cols">
-          <!-- Image Source: pngwing.com -->
-          <img src="/images/image1.png" height="150" width="100">
-          <p>Buy Stocks and Crypto</p>
-        </div>
+        <a href = "/portfolio">
+          <div class="image-cols">
+            <!-- Image Source: pngwing.com -->
+            <img src="/images/image1.png" height="150" width="100">
+            <p>Buy Stocks and Crypto</p>
+          </div>
+        </a>
         <a href ='/stocks'>
           <div class="image-cols">
             <!-- Image Source: pngwing.com -->
