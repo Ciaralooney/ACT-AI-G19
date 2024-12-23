@@ -24,7 +24,8 @@
             <% portfolios.forEach(portfolio => { %>
                 <li>
                     <span><strong>Client Name:</strong> <a href="/portfolio/<%= portfolio._id %>/clientDetails"><%= portfolio.clientName %></a></span> |
-                    <span><strong>Fund Manager Email:</strong> <%= portfolio.fundManagerEmail %></span>
+                    <span><strong>Description:</strong> <%= portfolio.clientDescription %></span>
+                    <button onclick="location.href='/portfolio/<%= portfolio._id %>/trade/stock'">Trade</button>
                     <button onclick="location.href='/portfolio/<%= portfolio._id %>/manage'">Manage</button>
                     <button onclick="deletePortfolio('<%= portfolio._id %>')">Delete</button>
                 </li>

@@ -8,14 +8,13 @@
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
 </head>
 <header>
-    <h1><%= title %></h1>
+    <h1><%= title %> <%= portfolio.clientName %></h1>
 </header>
 <nav>        
     <%- include ('partials/headers'); %>
 </nav>
 <body>
     <main>
-        <h1>Manage Portfolio: <%= portfolio.clientName %></h1>
         <form action="/portfolio/<%= portfolio._id %>" method="POST">
             <label for="clientName">Client Name:</label>
             <input type="text" id="clientName" name="clientName" value="<%= portfolio.clientName %>" required><br><br>        

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>Buy and sell</title>
+</head>
+<header>
+    <h1><%= title %> Crypto for <%= portfolio.clientName %></h1>
+</header>
+<nav>        
+    <%- include ('partials/headers'); %>
+</nav>
+
+<body>
+    <button onclick="location.href='/portfolio/<%= portfolio._id %>/trade/stock'">Trade Stock</button>
+    <main>
+        Sell
+    </main>
+    <main>
+        Buy
+    </main>
+</body>
+</html>

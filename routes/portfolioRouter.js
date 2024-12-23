@@ -2,6 +2,8 @@ const express = require('express');
 const ClientPortfolio = require('../models/client')
 const stockModel = require("../models/stocks")
 const cryptoModel = require("../models/crypto")
+const axios = require('axios');
+const flaskDomain = "https://yfianance-api-904c5fa45cd2.herokuapp.com";
 const ensureAuthenticated = require("../public/javascripts/authMiddleware")
 
 var portfolioRouter = express.Router();
@@ -97,14 +99,134 @@ portfolioRouter.post('/portfolio/:id', async (req, res) => {
       cryptoSymbols: updatedCryptoSymbols,
   });
     const portfolio  = ClientPortfolio.findById(req.params.id);
+
     console.log(req.params.id);
-    console.log('Stock Symbols:', portfolio.stockSymbols);
-    console.log('Crypto Symbols:', portfolio.cryptoSymbols);
+    console.log('Stock Symbols:', updatedStockSymbols);
+    console.log('Crypto Symbols:', updatedCryptoSymbols);
 
     res.redirect('/portfolio');
   } catch(error) {
     console.error(error);
     res.status(500).send('Error updating portfolio');
+  }
+});
+
+// Trade crypto for client
+portfolioRouter.get('/portfolio/:id/trade/crypto', async (req, res) => {
+  const portfolio = await ClientPortfolio.findById(req.params.id)
+    .populate('cryptoSymbols');
+    
+    console.log('Crypto Symbols:', portfolio.cryptoSymbols);
+    // Fetch all available crypto symbols
+  const cryptoSymbols = await cryptoModel.find();
+  res.render('portfolioTradeCrypto', {title: "Trade", portfolio, cryptoSymbols });
+});
+
+// Trade stock for client
+portfolioRouter.get('/portfolio/:id/trade/stock', async (req, res) => {
+  try {
+    // Fetch portfolio details to get bought symbols
+    const portfolio = await ClientPortfolio.findById(req.params.id)
+        .populate('stockSymbols.symbol') 
+        .exec();
+
+    const boughtSymbols = portfolio.stockSymbols.map(stock => stock.symbol.symbol);
+
+    const response = await axios.post(`${flaskDomain}/get_stock_data`,
+      { array: boughtSymbols }, // Send the bought symbols to the API
+      { headers: { 'Content-Type': 'application/json' } }
+  );
+    const stockDataBought = response.data;
+    // Fetch all available stock symbols
+    const allSymbols = await stockModel.find({}, 'symbol -_id');
+    const availableSymbols = allSymbols
+        .map(doc => doc.symbol)
+        .filter(symbol => !boughtSymbols.includes(symbol)); // Exclude bought symbols
+
+    // Call API with available symbols only
+    const response1 = await axios.post(`${flaskDomain}/get_stock_data`,
+        { array: availableSymbols },
+        { headers: { 'Content-Type': 'application/json' } }
+    );
+
+    const stockData = response1.data;
+
+    res.render('portfolioTradeStock', {title: "Trade", portfolio, stockList: stockData, boughtListData: stockDataBought, 
+      boughtStocks: portfolio.stockSymbols});
+  } catch (error) {
+    console.error('Error fetching stock data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+// Buy specific stock page
+portfolioRouter.get('/portfolio/:id/trade/stock/:symbol', async (req, res) => {
+  const { id, symbol } = req.params;
+  try {
+    // Fetch portfolio details
+    const portfolio = await ClientPortfolio.findById(id);
+    // Fetch stock data for the selected symbol
+    const response = await axios.post(`${flaskDomain}/api/stockGraph`, {
+      params: { symbol }
+    });
+
+    const stockData = response.data.stockData;
+    console.log('Stock Data:', stockData);
+  
+    res.render('portfolioStockBuy', {
+      title: `Buy ${symbol.toUpperCase()}`,
+      symbol,
+      portfolio,
+      stockData
+    });
+  } catch (error) {
+    console.error('Error fetching stock data for buying:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+// Handle buying stocks
+portfolioRouter.post('/portfolio/:id/trade/stock/:symbol/buy', async (req, res) => {
+  const { id, symbol } = req.params;
+  const { quantity, price } = req.body;
+
+  try {
+    // Look up the stock symbol in the database
+    const stock = await stockModel.findOne({ symbol: symbol.toUpperCase() });
+
+    if (!stock) {
+      return res.status(404).send('Stock symbol not found');
+    }
+
+    // Ensure that quantity and price are numbers
+    const quantityNumber = parseFloat(quantity);
+    const priceNumber = parseFloat(price);
+
+    if (isNaN(quantityNumber) || isNaN(priceNumber)) {
+      return res.status(400).send('Invalid quantity or price');
+    }
+
+    // Calculate the total amount
+    const totalPrice = priceNumber * quantityNumber;
+
+    // Update portfolio to reflect the purchased stock
+    await ClientPortfolio.findByIdAndUpdate(
+      id,
+      {
+        $push: {
+          stockSymbols: {
+            symbol: stock._id, // Use the ObjectId of the stock
+            quantity: quantityNumber,
+            price: priceNumber
+          }
+        }
+      }
+    );
+
+    res.redirect(`/portfolio/${id}/manage`);
+  } catch (error) {
+    console.error('Error processing stock purchase:', error);
+    res.status(500).send('Internal Server Error');
   }
 });
 
