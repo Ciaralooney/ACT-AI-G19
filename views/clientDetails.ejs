@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Portfolio</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>   
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style_for_symbols.css"/>   
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon"> 
 </head>
 <header>
@@ -16,6 +17,7 @@
 <body> 
     <main>
         <div style="text-align: right;">
+            <button onclick="location.href='/portfolio/<%= portfolio._id %>/trade/stock'">Trade</button>
             <button onclick="location.href='/portfolio/<%= portfolio._id %>/manage'">Manage</button>
         </div>
         <br>
@@ -23,31 +25,17 @@
             <label for="clientDescription"><b>Client Description:</b> <%= portfolio.clientDescription %><br></label>
             <label for="fundManagerEmail"><b>Fund Manager Email:</b> <%= portfolio.fundManagerEmail %><br></label>
 
-            <h3>Select Stock Symbols:</h3>
-            <% stockSymbols.forEach(stock => { %>
+            <h3>Stock Symbols in Portfolio:</h3>
+            <% portfolio.stockSymbols.forEach(stock => { %>
                 <label>
-                    <input 
-                        type="checkbox" 
-                        name="stockSymbols" 
-                        value="<%= stock.symbol %>" 
-                        <%= portfolio.stockSymbols && portfolio.stockSymbols.some(selectedStock => selectedStock._id.equals(stock._id)) ? 'checked' : '' %>
-                        disabled
-                    />
-                    <%= stock.symbol %>
+                    <%= stock.symbol.symbol %>
                 </label><br>
             <% }) %>
                     
-            <h3>Select Crypto Symbols:</h3>
-            <% cryptoSymbols.forEach(crypto => { %>
+            <h3>Crypto Symbols in Portfolio:</h3>
+            <% portfolio.cryptoSymbols.forEach(crypto => { %>
                 <label>
-                    <input 
-                        type="checkbox" 
-                        name="cryptoSymbols" 
-                        value="<%= crypto.symbol %>" 
-                        <%= portfolio.cryptoSymbols && portfolio.cryptoSymbols.some(selectedCrypto => selectedCrypto._id.equals(crypto._id)) ? 'checked' : '' %>
-                        disabled
-                    />
-                    <%= crypto.symbol %>
+                    <%= crypto.symbol.symbol  %>
                 </label><br>
             <% }) %>
     </main> 
