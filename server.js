@@ -36,6 +36,7 @@ const profileRouter = require("./routes/profileRouter");
 const portfolioRouter = require('./routes/portfolioRouter')
 const ratingRouter = require('./routes/ratingRouter'); // Import the router file
 const aiRouter = require('./routes/aiRouter')
+const faqRouter = require("./routes/faqRouter");
 
 app.use((req, res, next) => {
   res.locals.session = req.session;
@@ -56,6 +57,8 @@ app.use('/rating', ratingRouter);
 app.use("/AI",aiRouter)
 app.use("/accounts", deleteAccountRouter);
 app.use('/admin', adminRouter);
+app.use('/faq', faqRouter);
+
 
 // Connect to MongoDB
 mongoose

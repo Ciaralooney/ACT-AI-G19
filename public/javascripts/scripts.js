@@ -37,3 +37,4 @@ async function formSubmit(event) {
         document.getElementById('message').innerHTML = `<div style="color: red;">An error occurred.</div>`;
     }
 }
+
