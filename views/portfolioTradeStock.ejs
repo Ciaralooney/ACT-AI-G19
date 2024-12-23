@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>   
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style_for_symbols.css"/>   
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <title>Buy and sell</title>
+</head>
+<header>
+    <h1><%= title %> Stock for <%= portfolio.clientName %></h1>
+</header>
+<nav>        
+    <%- include ('partials/headers'); %>
+</nav>
+
+<body>
+    <button onclick="location.href='/portfolio/<%= portfolio._id %>/trade/crypto'">Trade Crypto</button>
+    <main>
+        
+        <!-- Current Items Section -->
+        <% if (boughtStocks && boughtStocks.length > 0) { %> 
+        <section>
+            <h1>Currently Owned Stocks</h1>
+            
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Price Bought At (€)</th>
+                            <th>Current Price (€)</th>
+                            <th>Quantity</th>
+                            <th>Total Profit (€)</th>
+                            <th>Profit (%)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% boughtStocks.forEach(stock => { %>
+                            <tr>
+                                <td><a href="/stocks/detail/<%= stock.symbol.symbol %>"><%= stock.symbol.symbol %></a></td>
+                                <td><%= stock.price.toFixed(2) %></td>
+                                <td>
+                                    <% const stockData = boughtListData[stock.symbol.symbol]; %>
+                                    <%= stockData.Close.toFixed(2) %>
+                                </td>
+                                <td><%= stock.quantity %></td>
+                                <td>
+                                    <% 
+                                        const totalProfit = stockData ? (stockData.Close - stock.price) * stock.quantity : 0;
+                                    %>
+                                    <%= totalProfit.toFixed(2) %>
+                                </td>
+                                <td>
+                                    <% 
+                                        const profitPercentage = stockData ? (((stockData.Close - stock.price) / stock.price) * 100) : 0;
+                                    %>
+                                    <%= profitPercentage.toFixed(2) %>%
+                                </td> 
+                                <td>
+                                    <form action="/portfolio/<%= portfolio._id %>/sell/stock" method="POST">
+                                        <input type="hidden" name="symbol" value="<%= stock.symbol._id %>">
+                                        <button type="submit">Sell</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+        </section>
+        <% } else { %>
+            <h2>No Stocks Owned</h2>
+        <% } %>
+    </main>
+    <main>
+    
+        <!-- Available Items Section -->
+        <section>
+            <h1>Available Stocks to Buy</h1>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Symbol</th>
+                        <th>Current Price (€)</th>
+                        <th>Volume</th>
+                        <th>Growth (%)</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (let company in stockList) { %>
+                        <tr>
+                            <td><a href="/stocks/detail/<%= company.toUpperCase() %>"><%= company.toUpperCase() %></a></td>
+                            <td><%= stockList[company].Close.toFixed(2) %></td>
+                            <td><%= stockList[company].Volume %></td>
+                            <td><%= (((stockList[company].Close - stockList[company].Open) / stockList[company].Open) * 100).toFixed(2) %>%</td>
+                            <td>
+                                <button onclick="location.href=`/portfolio/<%= portfolio._id %>/trade/stock/<%= company.toUpperCase() %>`" type="submit">Buy</button>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </section>
+    </main>
+   
+</body>
+</html>

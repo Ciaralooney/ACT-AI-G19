@@ -1,0 +1,85 @@
+p {
+	text-align: center;
+}
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+input {
+    padding: 10px;
+    margin: 10px;
+    font-size: 1em;
+}
+button {
+    padding: 10px;
+    font-size: 1em;
+    cursor: pointer;
+}
+#stockData {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    padding: 20px;
+}
+table{
+    overflow-x: scroll;
+    overflow-y:scroll;
+    width: 80%;
+    border-collapse: collapse;
+    margin : 0 auto;
+}
+table, th, td {
+    border: 1px solid black;
+  }
+th, td {
+    padding: 10px;
+    text-align: center;
+  }
+.stockGraph{
+    margin: 0 auto; 
+    width: 1200px;     
+    height: 800px;     
+    overflow: auto;    
+    border: 1px solid #ccc;  
+    padding: 10px;   
+}
+.wrapper{
+    text-align: center;
+}
+a {
+    color: rgb(97, 97, 97);     /* Default link color */
+    text-decoration:none;   /* Optional: removes underline */
+    font-weight: bold;
+}
+
+main a:visited {
+    color: rgb(166, 110, 110);    
+    text-decoration:none;      /* Same color as the default link color */
+    font-weight: bold
+}
+.return{
+    text-align: right;
+    font-size: large;
+}
+
+button {
+    padding: 8px 16px; /* Smaller padding for a smaller button */
+    font-size: 0.9em; /* Slightly smaller text size */
+    cursor: pointer;
+    border-radius: 12px; /* Rounded corners */
+    background-color: #4CAF50; /* Green background color */
+    color: white; /* White text */
+    border: none; /* Remove border */
+    transition: background-color 0.3s ease; /* Smooth color transition */
+}
+
+button:hover {
+    background-color: #45a049; /* Slightly darker green on hover */
+}
+
+button:focus {
+    outline: none; /* Remove the outline on focus */
+}
+
+button:active {
+    background-color: #3e8e41; /* Even darker green on click */
+}

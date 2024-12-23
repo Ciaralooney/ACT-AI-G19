@@ -15,14 +15,34 @@ const clientPortfolioSchema = new mongoose.Schema({
     required: true,
   },
   stockSymbols: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'stocksymbol',
-    required: false,
+    symbol: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'stocksymbol',
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    }
   }],
   cryptoSymbols: [{
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: 'cryptosymbol',
-    required: false,
+    symbol: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'cryptosymbol',
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    }
   }],
 });
 

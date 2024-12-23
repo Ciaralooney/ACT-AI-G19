@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style_for_symbols.css"/>   
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">    
     <title><%= title %></title>
 </head>
@@ -24,7 +25,8 @@
             <% portfolios.forEach(portfolio => { %>
                 <li>
                     <span><strong>Client Name:</strong> <a href="/portfolio/<%= portfolio._id %>/clientDetails"><%= portfolio.clientName %></a></span> |
-                    <span><strong>Fund Manager Email:</strong> <%= portfolio.fundManagerEmail %></span>
+                    <span><strong>Description:</strong> <%= portfolio.clientDescription %></span>
+                    <button onclick="location.href='/portfolio/<%= portfolio._id %>/trade/stock'">Trade</button>
                     <button onclick="location.href='/portfolio/<%= portfolio._id %>/manage'">Manage</button>
                     <button onclick="deletePortfolio('<%= portfolio._id %>')">Delete</button>
                 </li>

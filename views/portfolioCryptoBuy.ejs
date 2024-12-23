@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/style_for_symbols.css"/>   
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+  <title>Buy <%= cryptoData.name %></title>
+</head>
+<header>
+  <h1>Buy Crypto: <%= cryptoData.name %> for <%= portfolio.clientName %></h1>
+</header>
+<nav>
+  <%- include('partials/headers'); %>
+</nav>
+<body>
+  <main>
+    <section>
+      <h2>Crypto Details</h2>
+      <table border="1">
+        <tr>
+          <th>Stock Name</th>
+          <th>Price (€)</th>
+          <th>Volume</th>
+          <th>Growth (%)</th>
+        </tr>
+        <tr>
+          <td><%= symbol %></td>
+          <td><%= cryptoData['Close'].toFixed(2) %></td>
+          <td><%= cryptoData['Volume'] %></td>
+          <td><%= (((cryptoData['Close'] - cryptoData['Open']) / cryptoData['Open']) * 100).toFixed(2) %>%</td>
+        </tr>
+      </table>
+    </section>
+  </main>
+  <main>
+    <section>
+      <h2>Buy Shares</h2>
+      <form action="/portfolio/<%= portfolio._id %>/trade/crypto/<%= symbol %>/buy" method="POST">
+        <input type="hidden" name="price" value="<%= cryptoData['Close'] %>">
+        <div>
+          <label for="quantity">Enter Quantity:</label>
+          <input type="number" id="quantity" name="quantity" min="1" step="0.1" required onchange="calculateTotal()">
+        </div>
+        <div>
+          <label for="amount">Total Amount (€):</label>
+          <input type="text" id="amount" name="amount" readonly>
+        </div>
+        <button type="submit">Buy</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    function calculateTotal() {
+      const price = parseFloat(document.querySelector('input[name="price"]').value);
+      const quantity = parseFloat(document.querySelector('#quantity').value);
+      const total = isNaN(quantity) ? 0 : price * quantity;
+      document.querySelector('#amount').value = total.toFixed(2);
+    }
+  </script>
+</body>
+</html>
