@@ -16,7 +16,7 @@
   <body>
     <main>
       <% if (!session.username) { %> 
-      <p>Hello Guest. Please login or signup via the navigation</p>
+      <p>Hello Guest. Please <a href="/accounts/login" >login</a> or <a href="/accounts/register" >sign up</a> via the navigation</p>
       <% } else { %> <!-- User is logged in -->   
         <p>Hello, <%= session.username %>!</p>
       <div class="row">
