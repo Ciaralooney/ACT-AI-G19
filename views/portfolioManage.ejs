@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"/>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style_for_symbols.css"/>   
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
 </head>
 <header>
@@ -15,6 +16,9 @@
 </nav>
 <body>
     <main>
+        <div style="text-align: left;">
+            <button onclick="location.href='/portfolio'">Go back to list</button>
+        </div>
         <form action="/portfolio/<%= portfolio._id %>" method="POST">
             <label for="clientName">Client Name:</label>
             <input type="text" id="clientName" name="clientName" value="<%= portfolio.clientName %>" required><br><br>        

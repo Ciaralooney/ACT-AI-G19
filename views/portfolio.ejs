@@ -21,6 +21,7 @@
 <body>
     <main>
         <!-- Portfolio List -->
+        <% if (portfolios.length > 0) { %> 
         <ul id="portfolioList" style="max-height: 400px; overflow-y: auto;">
             <% portfolios.forEach(portfolio => { %>
                 <li>
@@ -32,6 +33,9 @@
                 </li>
             <% }) %>
         </ul>
+        <% } else { %>
+            <h2>No Portfolio Found</h2>
+        <% } %>
     </main>
 
     <script>
