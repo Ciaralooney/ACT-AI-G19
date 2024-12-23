@@ -1,4 +1,4 @@
-// Showing the sub menu function
+//Showing the sub menu function
 function show() {
 	var x = document.getElementById("expandingMenu");
 	if (x.style.display === "none") {
@@ -37,4 +37,18 @@ async function formSubmit(event) {
         document.getElementById('message').innerHTML = `<div style="color: red;">An error occurred.</div>`;
     }
 }
+
+// this show function clashes with the other one
+// if I uncomment it, the faq page's navbar works but not the others
+
+// function show() {
+//     const menu = document.getElementById('expandingMenu');
+//     if (menu.classList.contains('hide')) {
+//         menu.classList.remove('hide');
+//         menu.classList.add('show');
+//     } else {
+//         menu.classList.remove('show');
+//         menu.classList.add('hide');
+//     }
+// }
 
