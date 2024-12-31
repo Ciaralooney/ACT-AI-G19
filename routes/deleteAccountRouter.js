@@ -30,7 +30,7 @@ deleteAccountRouter.post("/delete-request", async (req, res) => {
     const admins = await User.find({ role: "admin" });
     const adminEmails = admins.map(admin => admin.email);
 
-    const deletionURL = `http://127.0.0.1:3000/accounts/delete-user/${userId}/${encodeURIComponent(updatedUser.deletionToken)}`;
+    const deletionURL = `https://act-ai-g19.onrender.com/accounts/delete-user/${userId}/${encodeURIComponent(updatedUser.deletionToken)}`;
 
     const msg = {
       to: adminEmails,
